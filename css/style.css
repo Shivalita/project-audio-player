@@ -1,0 +1,67 @@
+/* on fait du mobile first */
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#container {
+    height: 100%;
+}
+
+#row1 {
+    height: 80%;
+}
+
+#row2 {
+    height: 20%;
+}
+
+/*on stylise notre div main*/
+#main {
+    border: 1px solid red;
+}
+
+/*on stylise notre aside*/
+#side {
+    border: 1px solid green;
+    display: none;
+}
+
+/*on stylise notre lecteur*/
+#player {
+    border: 1px solid blue;
+}
+
+/*on stylise la flèche qui permet de faire appraître le aside en vue mobile*/
+span {
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 10%;
+}
+
+.fas {
+    font-size: xx-large;
+}
+
+span:hover {
+    cursor: pointer;
+}
+
+/*on stylise l'animation d'aside*/
+@keyframes move_eye { 
+    from { margin-left:-20%; } 
+    to { margin-left:0%; }  
+}
+
+
+/*quand l'écran dépasse les proportions mobile*/
+@media only screen and (min-width: 768px) {
+    #side {
+        display: block;
+    }
+
+    span {
+        display: none;
+    }
+}
