@@ -14,9 +14,10 @@ include_once './partials/start-session.php';
 
         <div class="container-fluid" id="container">
 
+            <span><button type="button" class="btn btn-dark">Appear!</button></span>
+
             <div class="row" id="row1">
-                <span><i class="fas fa-chevron-circle-right"></i></span>
-                <aside class="col-12 col-md-2" id="side">
+                <aside class="col-md-2" id="side">
                     <p>Here's our aside, which contains our user's menu and our search bar</p>
                 </aside>
                 <div class="col-12 col-md-10" id="main">

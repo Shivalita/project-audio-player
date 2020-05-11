@@ -19,6 +19,7 @@ html, body {
 /*on stylise notre div main*/
 #main {
     border: 1px solid red;
+    z-index: 0;
 }
 
 /*on stylise notre aside*/
@@ -32,26 +33,31 @@ html, body {
     border: 1px solid blue;
 }
 
-/*on stylise la flèche qui permet de faire appraître le aside en vue mobile*/
+/*on stylise le bouton qui permet de faire appraître le aside en vue mobile*/
 span {
+    z-index: 1;
     display: block;
     position: fixed;
     left: 0px;
     top: 10%;
 }
 
-.fas {
-    font-size: xx-large;
-}
-
-span:hover {
+button:hover {
     cursor: pointer;
 }
 
 /*on stylise l'animation d'aside*/
-@keyframes move_eye { 
+@keyframes appear { 
     from { margin-left:-20%; } 
     to { margin-left:0%; }  
+}
+
+.animationAppear {
+    animation-name: appear;
+    animation-duration:0.5s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
 }
 
 
