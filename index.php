@@ -22,13 +22,15 @@ include_once './partials/start-session.php';
                     <?php include './partials/search-bar.php'; ?>
                 </aside>
                 <div class="col-12 col-md-10" id="main">
-                    <p>Here's our main div, which display the content of our four tabs</p>
                 </div>
             </div>
             
             <div class="row" id="row2">
                 <section class="col-12" id="player">
-                    <p>Here's our player section, which contains all you need to listen to music</p>
+                    <p>Player temporaire pour tester :</p>
+                    <audio controls="controls" id="audioPlayer">
+                        <source src="https://cdns-preview-1.dzcdn.net/stream/c-179888dacdd6a28871ead1caebf86c79-3.mp3">
+                    </audio>
                 </section>
             </div>
 
