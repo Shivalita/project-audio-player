@@ -1,4 +1,4 @@
-//erreur : result.map is not a function
+//erreur : result.map is not a function fu
 const myHeaders = {
     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
     "x-rapidapi-key": "7999759ba1mshe55b700cd61c3dcp1ec0a8jsn4a75ff295f89"
