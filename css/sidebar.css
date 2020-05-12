@@ -1,0 +1,14 @@
+
+#disconnect {
+    position : absolute;
+    bottom : 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* DISSIDENT ! */
+}
+
+#userName {
+    margin-bottom: 3vw;
+}

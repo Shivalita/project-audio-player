@@ -11,18 +11,19 @@ include_once './partials/start-session.php';
     <title>Index</title>
 </head>
     <body>
-
+        <!-- <?php include_once './partials/sign-modals.php';?> -->
         <div class="container-fluid" id="container">
 
             <span><button type="button" class="btn btn-dark">Appear!</button></span>
 
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
-                    <p>TOTO</p>
+                    <!-- <?php include_once './partials/sign-or-profile.php';?> -->
                     <?php include './partials/search-bar.php'; ?>
+                    <!-- <?php include_once './partials/disconnect-btn.php';?> -->
                 </aside>
                 <div class="col-12 col-md-10" id="main">
-                    <p>Here's our main div, which display the content of our four tabs</p>
+                    <!-- <?php include_once './partials/welcome-text.php';?> -->
                 </div>
             </div>
             
