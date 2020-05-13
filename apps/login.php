@@ -9,13 +9,13 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
     $nickname = htmlspecialchars($cleanNickname);
     $password = cleanData($_POST['password']);
 } else {
-    header('location: ../index.php');
+    header('location: ../index.php'); // Change url (renseigner les champs)
 }
 
 /* Remove data spaces and backslashs */
 function cleanData($data) {
     $data = stripslashes($data);
-    $data = trim($data);
+    $data = trim($data);  // FIX THIS
     return $data;
 }
 
