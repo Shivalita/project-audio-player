@@ -14,7 +14,7 @@ include_once './partials/start-session.php';
 
         <div class="container-fluid" id="container">
 
-            <span><button type="button" class="btn btn-dark">Appear!</button></span>
+            <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
 
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
