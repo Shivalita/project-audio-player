@@ -6,7 +6,7 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <!--FIX THIS-->
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -65,7 +65,7 @@
 
             </div>
 
-            <form action="./apps/sign-in.php" method="POST">
+            <form action="./apps/login.php" method="POST">
                 <div class="modal-body mx-3">
 
                     <div class="md-form mb-5">

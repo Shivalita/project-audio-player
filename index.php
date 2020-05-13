@@ -11,21 +11,17 @@ include_once './partials/start-session.php';
     <title>Index</title>
 </head>
     <body>
-        <!-- <?php include_once './partials/sign-modals.php';?> -->
+        <?php include_once './partials/sign-modals.php';?>
         <div class="container-fluid" id="container">
-
             <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
-
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
-                    <!-- <?php include_once './partials/sign-or-profile.php';?> -->
+                    <?php include_once './partials/sign-or-profile.php';?>
                     <?php include './partials/search-bar.php'; ?>
-                    <!-- <?php include_once './partials/disconnect-btn.php';?> -->
+                    <?php include_once './partials/disconnect-btn.php';?>
                 </aside>
                 <div class="col-12 col-md-10" id="main">
-
-                    <!-- <?php include_once './partials/welcome-text.php';?> -->
-
+                    <?php include_once './partials/welcome-text.php';?>
                 </div>
             </div>
             
