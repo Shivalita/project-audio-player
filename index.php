@@ -11,9 +11,13 @@ include_once './partials/start-session.php';
     <title>Index</title>
 </head>
     <body>
+
         <?php include_once './partials/sign-modals.php';?>
+
         <div class="container-fluid" id="container">
+
             <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
+            
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
                     <?php include_once './partials/sign-or-profile.php';?>
@@ -41,6 +45,8 @@ include_once './partials/start-session.php';
         <?php
         include_once './partials/script.php';
         ?>
+
+        <script src="./js/get-audio.js"></script>
 
     </body>
 </html>

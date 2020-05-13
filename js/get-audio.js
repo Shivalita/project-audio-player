@@ -7,21 +7,33 @@ const myHeaders = {
 const myInit = { method: 'GET',
                 headers: myHeaders};
 
-async function getAudio(url, init) {
+async function getArtist(url, init) {
     const response = await fetch(url, init);
     const result = await response.json();
-    const html = result.data.map(function(song) {
-        return `
-            <div>
-                <span>${song.title_short} </span>
-                <span>par ${song.artist.name} </span>
-                <span>de l'album ${song.album.title}</span>
-            </div>
-        `
-    }).join('');
-    const content = document.querySelector('#main');
-    content.insertAdjacentHTML('beforeend', html);
-    console.log(content);
-}
+    result.data.map(function(element) {
+        const artist = new FormData;
+        artist.append('name', element.artist.name);
+        const request = new XMLHttpRequest();
+        request.open("POST", "./apps/add-audio.php?artist");
+        request.send(artist);
+        console.log(artist);
+    })
+}//trop de requête ajax pas opti
+//on n'arrive pas sur la bonne page en tapant l'url, donc on ne voit pas le POST
+//simplifier la requête et eventuellement la peaufiner vendredi
 
-getAudio("https://deezerdevs-deezer.p.rapidapi.com/search?q=linkin%20park", myInit);
+getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=linkin%20park", myInit);
+
+
+
+// fetch('./apps/add-audio.php?artist', {
+//     method: 'POST',
+//     body: 'name'
+// })
+
+// const artist = new FormData;
+//         artist.append('name', element.artist.name);
+//         const request = new XMLHttpRequest();
+//         request.open("POST", "./apps/add-audio.php?artist");
+//         request.send(artist);
+//         console.log(artist)
