@@ -34,7 +34,7 @@ html, body {
 }
 
 /*on stylise le bouton qui permet de faire appraître le aside en vue mobile*/
-span {
+#spanAppearBtn {
     z-index: 1;
     display: block;
     position: fixed;
@@ -67,7 +67,7 @@ button:hover {
         display: block;
     }
 
-    span {
+    #spanAppearBtn {
         display: none;
     }
 }

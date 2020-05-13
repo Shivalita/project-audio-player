@@ -14,7 +14,7 @@ include_once './partials/start-session.php';
         <!-- <?php include_once './partials/sign-modals.php';?> -->
         <div class="container-fluid" id="container">
 
-            <span><button type="button" class="btn btn-dark">Appear!</button></span>
+            <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
 
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
@@ -23,13 +23,18 @@ include_once './partials/start-session.php';
                     <!-- <?php include_once './partials/disconnect-btn.php';?> -->
                 </aside>
                 <div class="col-12 col-md-10" id="main">
+
                     <!-- <?php include_once './partials/welcome-text.php';?> -->
+
                 </div>
             </div>
             
             <div class="row" id="row2">
                 <section class="col-12" id="player">
-                    <p>Here's our player section, which contains all you need to listen to music</p>
+                    <p>Player temporaire pour tester :</p>
+                    <audio controls="controls" id="audioPlayer">
+                        <source src="https://cdns-preview-1.dzcdn.net/stream/c-179888dacdd6a28871ead1caebf86c79-3.mp3">
+                    </audio>
                 </section>
             </div>
 
