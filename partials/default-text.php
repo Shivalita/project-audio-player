@@ -1,6 +1,6 @@
+<!-- included in div "content" -->
 <?php
-include_once '../partials/start-session.php';
-include_once '../apps/session.php';
+include_once '../apps/sessionVar.php';
 
 if ($_SESSION) {
     return `

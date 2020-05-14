@@ -1,5 +1,6 @@
 <?php
 include_once './partials/start-session.php';
+include_once './apps/sessionVar.php';
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +27,12 @@ include_once './partials/start-session.php';
                 </aside>
                 <div class="col-12 col-md-10" id="main">
                     <div id="content">
+                        <div id="tabs" class="d-flex">
+                            <a href="index.php?now-playing">Now playing</a>
+                            <a href="index.php?comments">Comments</a>
+                            <a href="index.php?popular-playlists">Popular playlists</a>
+                            <a href="index.php?new-releases">New releases</a>
+                        </div>
                         <?php include_once './partials/default-text.php';?>
                     </div>
                 </div>
@@ -47,8 +54,6 @@ include_once './partials/start-session.php';
         <?php
         include_once './partials/script.php';
         ?>
-
-        <script src="./js/get-audio.js"></script>
 
     </body>
 </html>

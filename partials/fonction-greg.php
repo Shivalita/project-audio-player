@@ -125,3 +125,5 @@ function prettyDump(array $nested_arrays): void
         }
     }
 }
+
+?>

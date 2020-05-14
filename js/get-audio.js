@@ -11,7 +11,7 @@ async function getArtist(url, init) {
     const response = await fetch(url, init);
     const results = await response.json();
     const result = results.data;
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < result.length; i++) {
         const artist = new FormData;
         artist.append('artistName', result[i].artist.name);
         artist.append('title', result[i].title_short);
@@ -26,7 +26,7 @@ async function getArtist(url, init) {
 //on n'arrive pas sur la bonne page en tapant l'url, donc on ne voit pas le POST
 //simplifier la requête et eventuellement la peaufiner vendredi
 
-getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=linkin%20park", myInit);
+getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=disturbed", myInit);
 
 
 

@@ -11,6 +11,11 @@ if (!$artistExists) {
     addArtist();
 }
 
+$getLastArtist = $database->query('SELECT artists.id FROM artists ORDER BY id DESC LIMIT 1');
+$LastArtist = $getLastArtist->fetch(PDO::FETCH_ASSOC);
+$artistId = $LastArtist['id'];
+$artistId = (int)$artistId;
+
 //check that album doesn't already exist
 global $database;
 $albumVerif = $database->prepare('SELECT * FROM albums WHERE album_title = ?');
@@ -21,6 +26,11 @@ if (!$albumExists) {
     global $artistId;
     addAlbum();
 }
+
+$getLastAlbum = $database->query('SELECT albums.id FROM albums ORDER BY id DESC LIMIT 1');
+$lastAlbum = $getLastAlbum->fetch(PDO::FETCH_ASSOC);
+$albumId = $lastAlbum['id'];
+$albumId = (int)$albumId;
 
 //check that song doesn't already exist
 global $database;
@@ -40,12 +50,6 @@ function addArtist() {
             ));
 }
 
-$getLastArtist = $database->query('SELECT artists.id FROM artists ORDER BY id DESC LIMIT 1');
-$LastArtist = $getLastArtist->fetch(PDO::FETCH_ASSOC);
-$artistId = $LastArtist['id'];
-$artistId = (int)$artistId;
-var_dump($artistId);
-
 function addAlbum() {
         global $database;
         global $artistId;
@@ -57,12 +61,6 @@ function addAlbum() {
             ));
 }
 
-$getLastAlbum = $database->query('SELECT albums.id FROM albums ORDER BY id DESC LIMIT 1');
-$lastAlbum = $getLastAlbum->fetch(PDO::FETCH_ASSOC);
-$albumId = $LastAlbum['id'];
-$albumId = (int)$albumId;
-var_dump($albumId);
-
 function addSong() {
         global $database;
         global $artistId;
@@ -72,8 +70,7 @@ function addSong() {
                 "title" => $_POST['title'],
                 "artist_id" => $artistId,
                 "album_id" => $albumId,
-                "link" => $_POST['preview']
+                "link" => $_POST['link']
             ));
 }
-
 ?>
