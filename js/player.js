@@ -1,16 +1,30 @@
+let player = document.querySelector('#audioPlayer');
+// Listen for the music ended event, to play the next audio file
+player.addEventListener('ended', next, false);
+
+//stop function
+function stop() {
+    console.log(player);
+    player.currentTime=0;
+    player.pause();
+    
+}
 
 /* Play/Pause button */
 function play(idPlayer, control) {
     let player = document.querySelector('#' + idPlayer);
-	
-    if (player.paused) {
-        player.play();
-        control.textContent = 'Pause';
-    } else {
-        player.pause();	
-        control.textContent = 'Play';
-    }
+    
+         if (player.paused) {
+            player.play();
+            control.textContent = 'Pause';
+        } else {
+            player.pause();	
+            control.textContent = 'Play';
+        }     
 }
+
+ 
+
 
 /* Mute button */
 function mute(idPlayer) {
@@ -34,9 +48,60 @@ function loop(idPlayer) {
     }
 }
 
+/* Random button*/
+let randoms = [];
+console.log(randoms);
+
+async function random(url) {
+    console.log('coucou');
+    //if randoms array is empty, fetch random songs and put them inside
+    console.log(randoms);
+    if(randoms.length === 0) {
+        const response = await fetch(url);
+        const results = await response.json();
+        console.log(results);
+        results.map(function(data) {
+            randoms.push(data);
+        });player.src = randoms[0].link;
+        //if randoms array is full, empty it
+    } else {
+        randoms = [];
+    }    
+}
+
+// Current index of the files array
+let i = 0;
+
+// function for moving to next audio file
+function next() {
+    // Check for last audio file in the playlist
+    if (i === randoms.length - 1) {
+        i = 0;
+    } else {
+        i++;
+    }
+    // Change the audio element source
+    stop();
+    player.src = randoms[i].link;
+    player.play();
+}
+
+function prev() {
+    // Check for last audio file in the playlist
+    if (i === 0) {
+        i = randoms.length - 1;
+    } else {
+        i--;
+    }
+    // Change the audio element source
+    stop();
+    player.src = randoms[i].link;
+    player.play();
+}
+
+
 /* Volume controller */
 let volumeController = document.querySelector('#volumeController');
-let player = document.querySelector('#audioPlayer');
 
 volumeController.oninput = function() {
     let volume = (volumeController.value / 10);
@@ -47,19 +112,28 @@ volumeController.oninput = function() {
 function update(player) {
     let duration = player.duration;    // Durée totale
     let time     = player.currentTime; // Temps écoulé
-    let fraction = time / duration;
-    let percent  = Math.ceil(fraction * 100);
+    if(Number.isNaN(duration) || Number.isNaN(time)) {
+        duration = 0;
+        time = 0;
+    } else {
+        let fraction = time / duration;
+        console.log('duration', duration);
+        console.log('time', time);
+        console.log('fraction', fraction);
+        let percent  = Math.ceil(fraction * 100);
 
-    let progress = document.querySelector('#progressBar');
-	
-    progress.style.width = percent + '%';
-    progress.textContent = percent + '%';
+        let progress = document.querySelector('#progressBar');
+        
+        progress.style.width = percent + '%';
+        progress.textContent = percent + '%';
 
-    document.querySelector('#progressTime').textContent = formatTime(time);
-    document.querySelector('#durationTime').textContent = formatTime(duration);
+        document.querySelector('#progressTime').textContent = formatTime(time);
+        document.querySelector('#durationTime').textContent = formatTime(duration);
+    }
+    
 }
 
-/* Display current time*/
+/* Display current time */
 function formatTime(time) {
     let mins  = Math.floor((time % 3600) / 60);
     let secs  = Math.floor(time % 60);
@@ -109,3 +183,23 @@ function clickProgress(idPlayer, control, event) {
     
     player.currentTime = (duration * percent) / 100;
 }
+
+//get song currently playing'id
+// const audioPlayer = document.querySelector('#audioPlayer');
+
+// audioPlayer.addEventListener('playing', (event => {
+//     console.log('player on');
+//     let currentSong = event.originalTarget.src;
+//     fetch('./apps/song-id.php', {
+//         method: 'POST',
+//         body: currentSong.text
+//     })
+//     .then(response => {
+//         if(response.ok) {
+//             return response.text();
+//         } else {
+//             console.log('response error');
+//         }
+//     })
+// })
+// )

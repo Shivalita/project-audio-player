@@ -45,21 +45,3 @@ html.addEventListener('click', function(event) {
 })
 
 
-const audioPlayer = document.querySelector('#audioPlayer');
-
-audioPlayer.addEventListener('playing', (event => {
-    console.log('player on');
-    let currentSong = event.originalTarget.currentSrc;
-    fetch('./apps/song-id.php', {
-        method: 'POST',
-        body: currentSong.text
-    })
-    .then(response => {
-        if(response.ok) {
-            return response.text();
-        } else {
-            console.log('response error');
-        }
-    })
-})
-)
