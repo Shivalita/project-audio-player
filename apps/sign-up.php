@@ -78,3 +78,4 @@ if ($user) {
 
     header('location: ../index.php');
 }
+?>

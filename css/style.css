@@ -60,6 +60,10 @@ button:hover {
     animation-fill-mode: forwards;
 }
 
+#tabs {
+    justify-content: space-around;
+}
+
 
 /*quand l'écran dépasse les proportions mobile*/
 @media only screen and (min-width: 768px) {

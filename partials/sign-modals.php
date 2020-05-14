@@ -71,13 +71,13 @@
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
                         <label data-error="wrong" data-success="right" for="nickname">Nickname</label>
-                        <input type="text" id="signUpNickname" name="nickname" class="form-control validate" required>
+                        <input type="text" id="loginNickname" name="nickname" class="form-control validate" required>
                     </div>
 
                     <div class="md-form mb-5">
                         <i class="fas fa-lock prefix grey-text"></i>
                         <label data-error="wrong" data-success="right" for="password">Password</label>
-                        <input type="password" id="signUpPassword" name="password" class="form-control validate" required>
+                        <input type="password" id="loginPassword" name="password" class="form-control validate" required>
                     </div>
 
                 </div>
