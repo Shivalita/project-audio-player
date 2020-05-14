@@ -6,13 +6,13 @@ include_once '../partials/connection.php';
 /* --- GET DATA --- */
 
 /* Get post data and store it in variables */
-if (!empty($_POST['nickname']) && !empty($_POST['password'])) {  
+if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
     $cleanNickname = cleanData($_POST['nickname']);
     $nickname = htmlspecialchars($cleanNickname);
     $password = cleanData($_POST['password']);
 } else {
     header('location: ../index.php');
-}                                               // Do partials
+}
 
 /* Remove data spaces and backslashs */
 function cleanData($data) {

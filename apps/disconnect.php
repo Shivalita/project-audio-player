@@ -1,7 +1,6 @@
 <?php
-if ($_SESSION) {
-$_SESSION = array();
+session_start();
 session_destroy();
 header('Location: ../index.php');
-}
+exit; 
 ?>

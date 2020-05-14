@@ -1,4 +1,5 @@
 <?php
+
 include_once '../partials/start-session.php';
 include_once '../partials/connection.php';
 
@@ -8,13 +9,13 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
     $nickname = htmlspecialchars($cleanNickname);
     $password = cleanData($_POST['password']);
 } else {
-    header('location: ../index.php'); // Change url (renseigner les champs)
+    header('location: ../index.php');
 }
 
 /* Remove data spaces and backslashs */
 function cleanData($data) {
     $data = stripslashes($data);
-    $data = trim($data);  // FIX THIS
+    $data = trim($data);
     return $data;
 }
 

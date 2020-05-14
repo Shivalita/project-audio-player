@@ -1,6 +1,6 @@
 <?php
 include_once './partials/start-session.php';
-include_once './apps/sessionVar.php';
+include_once './apps/session.php';
 ?>
 
 <!DOCTYPE html>
@@ -18,21 +18,15 @@ include_once './apps/sessionVar.php';
         <div class="container-fluid" id="container">
 
             <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
-<<<<<<< HEAD
-
-=======
             
->>>>>>> 3fe1d502a323fa854807dd3a9296be45b4e866b7
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
                     <?php include './partials/sign-or-profile.php';?>
                     <?php include './partials/search-bar.php'; ?>
                     <?php include './partials/disconnect-btn.php';?>
                 </aside>
+
                 <div class="col-12 col-md-10" id="main">
-<<<<<<< HEAD
-                    <?php include_once './partials/welcome-text.php';?>
-=======
                     <div id="content">
                         <div id="tabs" class="d-flex">
                             <a href="index.php?now-playing">Now playing</a>
@@ -42,7 +36,6 @@ include_once './apps/sessionVar.php';
                         </div>
                         <?php include_once './partials/default-text.php';?>
                     </div>
->>>>>>> 3fe1d502a323fa854807dd3a9296be45b4e866b7
                 </div>
             </div>
             
