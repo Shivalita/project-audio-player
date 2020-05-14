@@ -29,7 +29,7 @@ html, body {
 }
 
 /*on stylise notre lecteur*/
-#player {
+#playerSection {
     border: 1px solid blue;
 }
 
@@ -74,4 +74,17 @@ button:hover {
     #spanAppearBtn {
         display: none;
     }
+}
+
+.volume {
+    width: 100px;
+    height: 20px;
+}
+
+.volume:hover {
+    cursor: pointer;
+}
+
+#progressBarControl:hover {
+    cursor: pointer;
 }

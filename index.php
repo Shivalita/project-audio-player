@@ -18,7 +18,11 @@ include_once './apps/sessionVar.php';
         <div class="container-fluid" id="container">
 
             <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
+<<<<<<< HEAD
+
+=======
             
+>>>>>>> 3fe1d502a323fa854807dd3a9296be45b4e866b7
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
                     <?php include './partials/sign-or-profile.php';?>
@@ -26,6 +30,9 @@ include_once './apps/sessionVar.php';
                     <?php include './partials/disconnect-btn.php';?>
                 </aside>
                 <div class="col-12 col-md-10" id="main">
+<<<<<<< HEAD
+                    <?php include_once './partials/welcome-text.php';?>
+=======
                     <div id="content">
                         <div id="tabs" class="d-flex">
                             <a href="index.php?now-playing">Now playing</a>
@@ -35,15 +42,13 @@ include_once './apps/sessionVar.php';
                         </div>
                         <?php include_once './partials/default-text.php';?>
                     </div>
+>>>>>>> 3fe1d502a323fa854807dd3a9296be45b4e866b7
                 </div>
             </div>
             
             <div class="row" id="row2">
-                <section class="col-12" id="player">
-                    <p>Player temporaire pour tester :</p>
-                    <audio controls="controls" id="audioPlayer">
-                        <source src="https://cdns-preview-1.dzcdn.net/stream/c-179888dacdd6a28871ead1caebf86c79-3.mp3">
-                    </audio>
+                <section class="col-12" id="playerSection">
+                    <?php include_once './partials/player.php';?>
                 </section>
             </div>
 
