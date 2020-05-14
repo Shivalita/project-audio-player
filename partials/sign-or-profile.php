@@ -17,7 +17,7 @@
 ?>
 
     <div class="col-12 col-md-8 offset-md-2 text-center mt-4">
-      <img id="userAvatar" class="img-fluid img-rounded" src="<?=$avatarImg?>" alt="">
+      <img id="userAvatar" class="img-fluid img-rounded" src=" $avatarImg?>" alt="">
     </div>
 
     <div class="col-12 col-md-10 offset-md-1 text-center mt-4">
@@ -26,5 +26,5 @@
   
 <?php
   }
-  
+
 ?>
