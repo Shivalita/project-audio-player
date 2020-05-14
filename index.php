@@ -12,7 +12,7 @@ include_once './partials/start-session.php';
 </head>
     <body>
 
-        <?php include_once './partials/sign-modals.php';?>
+        <?php include './partials/sign-modals.php';?>
 
         <div class="container-fluid" id="container">
 
@@ -20,12 +20,14 @@ include_once './partials/start-session.php';
             
             <div class="row" id="row1">
                 <aside class="col-md-2" id="side">
-                    <?php include_once './partials/sign-or-profile.php';?>
+                    <?php include './partials/sign-or-profile.php';?>
                     <?php include './partials/search-bar.php'; ?>
-                    <?php include_once './partials/disconnect-btn.php';?>
+                    <?php include './partials/disconnect-btn.php';?>
                 </aside>
                 <div class="col-12 col-md-10" id="main">
-                    <?php include_once './partials/welcome-text.php';?>
+                    <div id="content">
+                        <?php include_once './partials/default-text.php';?>
+                    </div>
                 </div>
             </div>
             
