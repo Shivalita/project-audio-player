@@ -22,7 +22,7 @@ function cleanData($data) {
 }
 
 /* Check file extension and size, and if upload has no error before storage */
-if (!empty($_FILES['avatar']) AND $_FILES['avatar']['error'] == 0) {
+if (!empty($_FILES['avatar']) AND $_FILES['avatar']['error'] === 0) {
     if ($_FILES['avatar']['size'] <= 1000000) {
         $infosfichier = pathinfo($_FILES['avatar']['name']);
         $extension_upload = $infosfichier['extension'];

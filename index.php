@@ -1,5 +1,5 @@
 <?php
-include_once './partials/start-session.php';
+include_once './apps/session.php';
 ?>
 
 <!DOCTYPE html>
@@ -63,6 +63,8 @@ include_once './partials/start-session.php';
         <?php
         include_once './partials/script.php';
         ?>
+
+        <script src="./js/get-audio.js"></script>
 
     </body>
 </html>

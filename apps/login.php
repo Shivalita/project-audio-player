@@ -27,7 +27,7 @@ if (!$user) {
     header('location: ../index.php?unknown_user');
 } else {
     /* Check if nickname and password are correct*/
-    if (($nickname == $user['nickname']) && ($password == $user['password'])) {
+    if (($nickname === $user['nickname']) && ($password === $user['password'])) {
         /* Store the user id */
         $userId = $user['id'];
         $avatar = $user['avatar'];
