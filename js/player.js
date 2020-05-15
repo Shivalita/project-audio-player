@@ -109,3 +109,49 @@ function clickProgress(idPlayer, control, event) {
     
     player.currentTime = (duration * percent) / 100;
 }
+
+
+let contentDiv = document.querySelector('#content');
+let partial;
+
+/* get php partial to display in content */
+async function getPartial(url) {
+    console.log('before fetch')
+    let toto =  await fetch(url)
+
+    let response = await toto.text();
+    storePartial(response);
+    console.warn(response)
+}
+
+function storePartial(partialData) {
+    partial = partialData;
+    console.log('partial 1 = ' + partial);
+}
+
+/* Check if hash changes in url */
+window.addEventListener('hashchange', async function() {
+    if (window.location.hash === '#test') {
+        await getPartial('./partials/comment-form.php');
+        console.log('partial 2 = ' + partial);
+        contentDiv.innerHTML = partial;
+    }
+})
+
+
+audioPlayer.addEventListener('playing', (event => {
+    console.log('player on');
+    let currentSong = event.originalTarget.currentSrc;
+    fetch('./apps/song-id.php', {
+        method: 'POST',
+        body: currentSong.text
+    })
+    .then(response => {
+        if(response.ok) {
+            return response.text();
+        } else {
+            console.log('response error');
+        }
+    })
+})
+)
