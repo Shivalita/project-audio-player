@@ -1,11 +1,12 @@
 <!-- included in div "content" -->
 <?php
-include_once './apps/sessionVar.php';
+include_once './partials/start-session.php';
+include_once './apps/session.php';
 
 if ($_SESSION) {
     return `
     <div id="welcomeBack" class="text-center">
-        <h2 class="my-5"><b>Welcome back $nickname !<b></h2>
+        <h2 class="my-5"><b>Welcome back `.$_SESSION['nickname'].` !<b></h2>
         <h4 class="mt-4">Have fun and good vibes !</h4>
     </div>
     `;
