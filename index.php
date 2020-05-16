@@ -36,8 +36,12 @@ include_once './partials/connection.php';
                         <a href="index.php#popular-playlists">Popular playlists</a>
                         <a href="index.php#new-releases">New releases</a>
                     </div>
-                    <div id="content">
+                    <div id="content" class="d-flex">
                         <?php include_once './partials/default-text.php';?>
+                        <div id="artists"></div>
+                        <div id="albums"></div>
+                        <div id="songs"></div>
+                        <div id="playlists"></div>
                     </div>
                 </div>
             </div>

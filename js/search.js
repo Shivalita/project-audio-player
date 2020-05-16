@@ -42,7 +42,3 @@ async function getSearch(event) {
 
     search.value = '';
 }
-
-
-
-
