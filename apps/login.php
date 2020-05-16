@@ -31,6 +31,7 @@ if (!$user) {
         /* Store the user id */
         $userId = $user['id'];
         $avatar = $user['avatar'];
+        $avatar = substr($avatar, 1);
     include_once '../apps/session.php';
     header('location: ../index.php');
     } else {

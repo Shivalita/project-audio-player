@@ -27,4 +27,25 @@ html.addEventListener('click', function(event) {
    }
 })
 
+/* Tab system */
+let contentDiv = document.querySelector('#content');
+let partial;
 
+/* get php partial to be displayed in content */
+async function getPartial(url) {
+    let response =  await fetch(url)
+    let result = await response.text();
+    storePartial(result);
+}
+
+function storePartial(partialData) {
+    partial = partialData;
+}
+
+/* Check if hash changes in url */
+window.addEventListener('hashchange', async function() {
+    if (window.location.hash === '#comments') {
+        await getPartial('./partials/comments.php');
+        contentDiv.innerHTML = partial;
+    }
+})

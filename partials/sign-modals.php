@@ -50,7 +50,7 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="./apps/sign-in.php" method="POST">
+            <form action="./apps/login.php" method="POST">
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix grey-text"></i>
