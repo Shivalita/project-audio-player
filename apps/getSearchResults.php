@@ -21,5 +21,6 @@ if(!empty($_POST)) {
         'title' => search('title', 'songs', $search),
         'playlist_title' => search('playlist_title', 'playlists', $search),
     ]);
+    $_POST = array();
 }
 ?>

@@ -24,6 +24,7 @@ async function getResults(url, method, body) {
     console.log('myContent: ',  myContent);
     return myContent;
 }
+//Impossible de map si le result est "No results found" car pas un array
 
 async function getSearch(event) {
     console.log('la recherche commence');

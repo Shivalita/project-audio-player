@@ -1,6 +1,6 @@
 <h3 class="text-center">Prev</h3>
 <div class="d-flex" id="previewPrev">
-    <div>
+    <div id="coverPrev">
         <img src="https://api.deezer.com/album/81763/image">
     </div>
     <div class="text-center my-auto">
