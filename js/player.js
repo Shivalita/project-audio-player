@@ -1,12 +1,16 @@
+//select our player in DOM
 let player = document.querySelector('#audioPlayer');
+
 // Listen for the music ended event, to play the next audio file
 player.addEventListener('ended', next, false);
+
+//declare our empty array for playlists to come
+let currentPlaylist = [];
 
 //stop function
 function stop() {
     player.currentTime=0;
-    player.pause();
-    
+    player.pause();  
 }
 
 /* Play/Pause button */
@@ -21,9 +25,6 @@ function play(idPlayer, control) {
             control.textContent = 'Play';
         }     
 }
-
- 
-
 
 /* Mute button */
 function mute(idPlayer) {
@@ -47,21 +48,39 @@ function loop(idPlayer) {
     }
 }
 
-/* Random button*/
-let randoms = [];
-console.log(randoms);
+/* Function Fisher-Yates to shuffle an array */
+function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+}
 
+/* Random button*/
 async function random(url) {
-    //if randoms array is empty, fetch random songs and put them inside
-    if(randoms.length === 0) {
+    //if currentPlaylist array is empty, fetch random songs and put them inside
+    if(currentPlaylist.length === 0) {
         const response = await fetch(url);
         const results = await response.json();
         results.map(function(data) {
-            randoms.push(data);
-        });player.src = randoms[0].link;
-        //if randoms array is full, empty it
+            currentPlaylist.push(data);
+            currentPlaylist = shuffle(currentPlaylist);
+        });player.src = currentPlaylist[0].link;
+        //if currentPlaylist array is full, empty it
     } else {
-        randoms = [];
+        currentPlaylist = [];
     }    
 }
 
@@ -71,27 +90,27 @@ let i = 0;
 // function for moving to next audio file
 function next() {
     // Check for last audio file in the playlist
-    if (i === randoms.length - 1) {
+    if (i === currentPlaylist.length - 1) {
         i = 0;
     } else {
         i++;
     }
     // Change the audio element source
     stop();
-    player.src = randoms[i].link;
+    player.src = currentPlaylist[i].link;
     player.play();
 }
 
 function prev() {
     // Check for last audio file in the playlist
     if (i === 0) {
-        i = randoms.length - 1;
+        i = currentPlaylist.length - 1;
     } else {
         i--;
     }
     // Change the audio element source
     stop();
-    player.src = randoms[i].link;
+    player.src = currentPlaylist[i].link;
     player.play();
 }
 
@@ -162,7 +181,7 @@ function getPosition(element){
     return { x: left, y: top };
 }
 
-/*  */
+/* Make progress bar clickable */
 function clickProgress(idPlayer, control, event) {
     let parent = getPosition(control);    // La position absolue de la progressBar
     let target = getMousePosition(event); // L'endroit de la progressBar où on a cliqué

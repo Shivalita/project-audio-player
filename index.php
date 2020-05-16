@@ -14,13 +14,16 @@ include_once './partials/connection.php';
     <body>
 
         <?php include './partials/sign-modals.php';?>
+        <img class="background_image" src="media\abstract-blue-music-background.jpg">
 
         <div class="container-fluid" id="container">
 
-            <span id="spanAppearBtn"><button type="button" id="appearBtn" class="btn btn-dark">Appear!</button></span>
+            <span id="spanAppearBtn" class="d-block d-sm-block d-md-none">
+                <button type="button" id="appearBtn" class="btn btn-dark">Appear!</button>
+            </span>
             
             <div class="row" id="row1">
-                <aside class="col-md-2" id="side">
+                <aside class="d-none d-md-block col-2" id="side">
                     <?php include './partials/sign-or-profile.php';?>
                     <?php include './partials/search-bar.php'; ?>
                     <?php include './partials/disconnect-btn.php';?>
@@ -41,7 +44,17 @@ include_once './partials/connection.php';
             
             <div class="row" id="row2">
                 <section class="col-12" id="playerSection">
-                    <?php include_once './partials/player.php';?>
+                    <div class="row">
+                        <div class="d-none d-md-block col-md-2" id="prev">
+                            <?php include './partials/prevDiv.php'; ?>
+                        </div>
+                        <div class="col-md-8">
+                            <?php include_once './partials/player.php';?>
+                        </div>
+                        <div class="d-none d-md-block col-md-2" id="next">
+                            <?php include './partials/nextDiv.php'; ?>
+                        </div>
+                    </div>
                 </section>
             </div>
 

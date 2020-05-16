@@ -22,22 +22,6 @@ async function getArtist(url, init) {
         request.open("POST", "./apps/add-audio.php");
         request.send(artist);        
     }
-}//trop de requête ajax pas opti
-//on n'arrive pas sur la bonne page en tapant l'url, donc on ne voit pas le POST
-//simplifier la requête et eventuellement la peaufiner vendredi
+}
 
 getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=disturbed", myInit);
-
-
-
-// fetch('./apps/add-audio.php?artist', {
-//     method: 'POST',
-//     body: 'name'
-// })
-
-// const artist = new FormData;
-//         artist.append('name', element.artist.name);
-//         const request = new XMLHttpRequest();
-//         request.open("POST", "./apps/add-audio.php?artist");
-//         request.send(artist);
-//         console.log(artist)
