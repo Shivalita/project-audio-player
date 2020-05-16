@@ -1,6 +1,13 @@
 <?php
-include_once './partials/connection.php';
+session_start();
+include_once '../partials/connection.php';
 
-$songId = file_get_contents('php://input');
-echo ('<p>'.$songId.'</p>');
+/* Get song's link, search in database for his id and store it in session variable */
+$songLink = $_POST['link'];
+
+$linkQuery = $database->prepare('SELECT songs.id FROM songs WHERE link = ?');
+$linkQuery->execute([$songLink]);
+$songId = $linkQuery->fetch(PDO::FETCH_ASSOC);
+
+$_SESSION['songId'] = $songId['id'];
 ?>

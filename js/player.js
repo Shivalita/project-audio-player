@@ -4,7 +4,6 @@ player.addEventListener('ended', next, false);
 
 //stop function
 function stop() {
-    console.log(player);
     player.currentTime=0;
     player.pause();
     
@@ -53,13 +52,10 @@ let randoms = [];
 console.log(randoms);
 
 async function random(url) {
-    console.log('coucou');
     //if randoms array is empty, fetch random songs and put them inside
-    console.log(randoms);
     if(randoms.length === 0) {
         const response = await fetch(url);
         const results = await response.json();
-        console.log(results);
         results.map(function(data) {
             randoms.push(data);
         });player.src = randoms[0].link;
@@ -117,9 +113,6 @@ function update(player) {
         time = 0;
     } else {
         let fraction = time / duration;
-        console.log('duration', duration);
-        console.log('time', time);
-        console.log('fraction', fraction);
         let percent  = Math.ceil(fraction * 100);
 
         let progress = document.querySelector('#progressBar');
@@ -159,7 +152,7 @@ function getMousePosition(event) {
 
 /* Calculate distance between child and parent, and returns top and left values */
 function getPosition(element){
-    var top = 0, left = 0;
+    let top = 0, left = 0;
     
     do {
         top  += element.offsetTop;
@@ -171,64 +164,40 @@ function getPosition(element){
 
 /*  */
 function clickProgress(idPlayer, control, event) {
-    var parent = getPosition(control);    // La position absolue de la progressBar
-    var target = getMousePosition(event); // L'endroit de la progressBar où on a cliqué
-    var player = document.querySelector('#' + idPlayer);
+    let parent = getPosition(control);    // La position absolue de la progressBar
+    let target = getMousePosition(event); // L'endroit de la progressBar où on a cliqué
+    let player = document.querySelector('#' + idPlayer);
   
-    var x = target.x - parent.x; 
-    var wrapperWidth = document.querySelector('#progressBarControl').offsetWidth;
+    let x = target.x - parent.x; 
+    let wrapperWidth = document.querySelector('#progressBarControl').offsetWidth;
     
-    var percent = Math.ceil((x / wrapperWidth) * 100);    
-    var duration = player.duration;
+    let percent = Math.ceil((x / wrapperWidth) * 100);    
+    let duration = player.duration;
     
     player.currentTime = (duration * percent) / 100;
 }
 
 
-let contentDiv = document.querySelector('#content');
-let partial;
+/* Check if player is playing a song */
+player.addEventListener('playing', function(event) {
+    /* Store song's source */
+    let currentSong = event.originalTarget.src;
+    let formData = new FormData;
+    formData.append('link', currentSong); 
 
-/* get php partial to display in content */
-async function getPartial(url) {
-    console.log('before fetch')
-    let toto =  await fetch(url)
-
-    let response = await toto.text();
-    storePartial(response);
-    console.warn(response)
-}
-
-function storePartial(partialData) {
-    partial = partialData;
-    console.log('partial 1 = ' + partial);
-}
-
-/* Check if hash changes in url */
-window.addEventListener('hashchange', async function() {
-    if (window.location.hash === '#test') {
-        await getPartial('./partials/comment-form.php');
-        console.log('partial 2 = ' + partial);
-        contentDiv.innerHTML = partial;
-    }
+    /* Send song's source to php for processing (get id)  */
+    fetch('./apps/song-id.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if(response.ok) {
+            return response.link;
+        } else {
+            console.log('response error');
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    })
 })
-
-
-//get song currently playing'id
-// const audioPlayer = document.querySelector('#audioPlayer');
-
-// audioPlayer.addEventListener('playing', (event => {
-//     console.log('player on');
-//     let currentSong = event.originalTarget.src;
-//     fetch('./apps/song-id.php', {
-//         method: 'POST',
-//         body: currentSong.text
-//     })
-//     .then(response => {
-//         if(response.ok) {
-//             return response.text();
-//         } else {
-//             console.log('response error');
-//         }
-//     })
-// })
-// )

@@ -74,6 +74,7 @@ if ($user) {
     /* Store the user id */
     $user = getUser($nickname);
     $userId = $user['id'];
+    $avatar = substr($avatar, 1);
     include_once '../apps/session.php';
 
     header('location: ../index.php');
