@@ -1,5 +1,6 @@
 <?php
 include_once './partials/start-session.php';
+include_once './partials/connection.php';
 ?>
 
 <!DOCTYPE html>
