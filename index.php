@@ -1,5 +1,6 @@
 <?php
-include_once './apps/session.php';
+include_once './partials/start-session.php';
+include_once './partials/connection.php';
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +14,7 @@ include_once './apps/session.php';
     <body>
 
         <?php include './partials/sign-modals.php';?>
+        <img class="background_image" src="media\abstract-blue-music-background.jpg">
 
         <div class="container-fluid" id="container">
 

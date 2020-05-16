@@ -76,6 +76,7 @@ async function random(url) {
         const results = await response.json();
         results.map(function(data) {
             currentPlaylist.push(data);
+            currentPlaylist = shuffle(currentPlaylist);
         });player.src = currentPlaylist[0].link;
         //if currentPlaylist array is full, empty it
     } else {

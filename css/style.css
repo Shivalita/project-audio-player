@@ -4,10 +4,58 @@ html, body {
     height: 100%;
 }
 
+/* get font */
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600,700');
+
 * {
     box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #a5a5a5;
+    text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 
+/* background */
+.background_image
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+}
+
+/* links */
+a {
+    padding: 1em 2em;
+	color: white;
+	cursor: pointer;
+	outline: none;
+	border-radius: 100px;
+    border: 2px solid transparent;
+	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #00C9A7, #845EC2) border-box;
+    transition: all 200ms ease;
+}
+
+a, a:hover, a:visited, a:active, a:link
+{
+	text-decoration: none;
+	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+}
+
+a:active
+{
+	color: #FF6347;
+}
+a:hover
+{
+	color: #FFFFFF;
+}
+
+
+/*style our divs*/
 #container {
     height: 100%;
 }
@@ -20,21 +68,18 @@ html, body {
     height: 20%;
 }
 
-/*style our main div*/
 #main {
-    border: 1px solid red;
     z-index: 0;
 }
 
 /*style our aside*/
 #side {
-    border: 1px solid green;
-    /* display: none; */
+    
 }
 
 /*style our player*/
 #playerSection {
-    border: 1px solid blue;
+
 }
 
 #playerTitleArtist {
