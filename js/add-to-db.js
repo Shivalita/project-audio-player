@@ -1,7 +1,7 @@
 //on va chercher les data en json et on les convertit au bon format
 const myHeaders = {
     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-    "x-rapidapi-key": "7999759ba1mshe55b700cd61c3dcp1ec0a8jsn4a75ff295f89"
+    "x-rapidapi-key": "3c7ba1a799msh39d4063292763d0p17e532jsn54f102579552"
 };
 
 const myInit = { method: 'GET',
@@ -24,4 +24,4 @@ async function getArtist(url, init) {
     }
 }
 
-getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=disturbed", myInit);
+getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=perturbator", myInit);
