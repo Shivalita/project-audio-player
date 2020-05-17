@@ -224,7 +224,6 @@ button:hover {
     
 #side {
     border-right: 1px solid;
-    border-bottom: 1px solid;
     border-image-source: linear-gradient(45deg, #5a80b9, #845EC2);
     border-image-slice: 1;
     margin-bottom: 1vw;
@@ -235,7 +234,7 @@ button:hover {
 }
 
 #albumImg {
-    margin-top: 9vw;
+    margin-top: 12vw;
     margin-bottom: 5vw;
     transform: scale(1.5);
 }

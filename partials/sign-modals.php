@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                <h4 class="modal-title w-100 font-weight-bold text-dark">Sign up</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -33,7 +33,7 @@
                     </div>        
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn blackBtn text-white">Sign up</button>
+                    <button type="submit" class="btn control text-white">Sign up</button>
                 </div>
                 </div>
             </form>
@@ -45,7 +45,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                <h4 class="modal-title w-100 font-weight-bold text-dark">Sign in</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" class="btn blackBtn text-white">Sign in</button>
+                    <button type="submit" class="btn control text-white">Sign in</button>
                 </div>
                 </div>
             </form>

@@ -6,7 +6,7 @@
       <a id="signUpButton" href="" class="btn btn-dark btn-rounded mb-4 mt-5 control" data-toggle="modal" data-target="#modalSignUpForm">SIGN UP</a>
     </div>
 
-    <div class="text-center">
+    <div class="text-center mb-5">
       <a id="signInButton" href="" class="btn btn-dark btn-rounded mb-4 control" data-toggle="modal" data-target="#modalSignInForm">SIGN IN</a>
     </div>
 
@@ -15,7 +15,7 @@
 ?>
  
 
-    <div class="col-12 col-md-8 offset-md-2 text-center mt-4">
+    <div class="col-12 col-md-8 offset-md-2 text-center mt-5">
       <img id="userAvatar" class="img-fluid control avatar" src="<?=$_SESSION['avatar']?>" alt="">
     </div>
 
