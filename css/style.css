@@ -14,9 +14,12 @@ html, body {
     text-shadow: rgba(0,0,0,.01) 0 0 1px;
 }
 
+h3 {
+    color: #845EC2;
+}
+
 /* background */
-.background_image
-{
+.background_image {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -29,31 +32,86 @@ html, body {
 
 /* links */
 a {
-    padding: 1em 2em;
+    padding: 1em 1em;
 	color: white;
 	cursor: pointer;
 	outline: none;
 	border-radius: 100px;
     border: 2px solid transparent;
-	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner at var(--x) var(--y), #00C9A7, #845EC2) border-box;
+	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
     transition: all 200ms ease;
 }
 
-a, a:hover, a:visited, a:active, a:link
-{
+a, a:hover, a:active {
 	text-decoration: none;
-	text-shadow: rgba(0,0,0,.01) 0 0 1px;
+    text-shadow: rgba(0,0,0,.01) 0 0 1px;
+    transition: all 200ms ease;
 }
 
-a:active
-{
-	color: #FF6347;
-}
-a:hover
-{
-	color: #FFFFFF;
+a:active {
+	background: linear-gradient(#00C9A7, #845EC2) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+    transition: all 200ms ease;
 }
 
+a:hover {
+    color: #845EC2;
+    transition: all 200ms ease;
+}
+
+/* form */
+input {
+	color: white;
+	cursor: pointer;
+	border-radius: 5%;
+    border: 2px solid transparent;
+	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+    transition: all 200ms ease;
+}
+
+#search {
+    cursor: text;
+}
+
+#searchBtn:active {
+	background: linear-gradient(#00C9A7, #845EC2) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+    transition: all 200ms ease;
+}
+
+#searchBtn:hover {
+    color: #845EC2;
+    transition: all 200ms ease;
+}
+
+/*player buttons*/
+.control {
+	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+	border: solid 1px transparent;
+	border-radius: 10%;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+#coverNext, #coverPrev {
+	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+	border: solid 2px transparent;
+    cursor: pointer;
+    transition: all 200ms ease;
+}
+
+#coverNext:hover, #coverPrev:hover {
+    opacity: 0.8;
+    transition: all 200ms ease;
+}
+
+.control:active {
+	background: linear-gradient(#00C9A7, #845EC2) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+    transition: all 200ms ease;
+}
+
+.control:hover {
+    color: #845EC2;
+    transition: all 200ms ease;
+}
 
 /*style our divs*/
 #container {
@@ -73,14 +131,16 @@ a:hover
 }
 
 /*style our aside*/
-#side {
-    
+#disconnect {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
 }
 
 /*style our player*/
-#playerSection {
+/* #playerSection {
 
-}
+} */
 
 #playerTitleArtist {
     justify-content: space-around;

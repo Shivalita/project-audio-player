@@ -29,7 +29,7 @@
 
     <audio id="audioPlayer" ontimeupdate="update(this)" preload="auto"></audio>
 
-    <div>
+    <div class="py-2">
         <div id="progressBarControl" class="progress" onclick="clickProgress('audioPlayer', this, event)">
             <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated"></div>
         </div>

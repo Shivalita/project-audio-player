@@ -16,14 +16,16 @@ async function getResults(url, method, body) {
     let results = await response.json();
     console.log('results: ',  results);
     console.log('results name: ',  results.name);
-    let myContent = results.name.map(function(element) {
+    console.log('results album_title: ',  results.album_title);
+    let myContent = results.album_title.map(function(element) {
         return `
-            <li>${element.name}</li>
+            <li>${element.album_title}</li>
         `
     }).join('');
     console.log('myContent: ',  myContent);
     return myContent;
 }
+//Impossible de map si le result est "No results found" car pas un array
 
 async function getSearch(event) {
     console.log('la recherche commence');
@@ -41,7 +43,3 @@ async function getSearch(event) {
 
     search.value = '';
 }
-
-
-
-

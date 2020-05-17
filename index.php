@@ -22,7 +22,7 @@ include_once './partials/connection.php';
                 <button type="button" id="appearBtn" class="btn btn-dark">Appear!</button>
             </span>
             
-            <div class="row" id="row1">
+            <div class="row pt-1" id="row1">
                 <aside class="d-none d-md-block col-2" id="side">
                     <?php include './partials/sign-or-profile.php';?>
                     <?php include './partials/search-bar.php'; ?>
@@ -36,8 +36,12 @@ include_once './partials/connection.php';
                         <a href="index.php#popular-playlists">Popular playlists</a>
                         <a href="index.php#new-releases">New releases</a>
                     </div>
-                    <div id="content">
+                    <div id="content" class="d-flex">
                         <?php include_once './partials/default-text.php';?>
+                        <div id="artists"></div>
+                        <div id="albums"></div>
+                        <div id="songs"></div>
+                        <div id="playlists"></div>
                     </div>
                 </div>
             </div>
