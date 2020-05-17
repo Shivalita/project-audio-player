@@ -4,14 +4,14 @@
     <?php include_once './partials/add-playlist-btn.php';?>
 
     <div class="d-flex text-center" id="playerTitleArtist">
-        <h5>Title - Artist</h5>
+        <h5 class="text-white mb-4">Title - Artist</h5>
     </div>
     
     <div class="d-flex justify-content-around">
         <div>
             <button class="control" onclick="mute('audioPlayer')">Mute</button>
             <button class="control" onclick="loop('audioPlayer')">Loop</button>
-            <button class="control" onclick="random('./apps/get-songs.php?random')">Random</button>
+            <button class="control" onclick="random('./apps/get-playlists.php?random')">Random</button>
         </div>
         
         <div>

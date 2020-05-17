@@ -1,4 +1,4 @@
-<form action="./apps/commentProcess.php" method="POST">
+<form action="./apps/comment-process.php" method="POST">
     <div class="row justify-content-around mt-4">
         <div class="col-10 col-md-6">
             <i class="fas fa-user prefix grey-text"></i>

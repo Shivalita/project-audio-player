@@ -31,10 +31,10 @@ include_once './partials/connection.php';
 
                 <div class="col-12 col-md-10" id="main">
                     <div id="tabs" class="d-flex">
-                        <a href="index.php#now-playing">Now playing</a>
-                        <a href="index.php#comments">Comments</a>
-                        <a href="index.php#popular-playlists">Popular playlists</a>
-                        <a href="index.php#new-releases">New releases</a>
+                        <a href="#" class="tab">Now playing</a>
+                        <a href="#" class="tab">Comments</a>
+                        <a href="#" class="tab">Popular playlists</a>
+                        <a href="#" class="tab">New releases</a>
                     </div>
                     <div id="content" class="d-flex">
                         <?php include_once './partials/default-text.php';?>

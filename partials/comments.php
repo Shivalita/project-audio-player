@@ -1,30 +1,8 @@
 <?php
     include_once '../partials/start-session.php';
-    $_SESSION['songId'] = 20; // FOR TESTING - TO REMOVE
 
-    if ($_SESSION['songId']) {
-        echo ('
-            <div class="container commentsContainer">
-                <div class="row">
-                    <div class="col-10 col-md-8 comment">
-                        <?php include "./apps/commentsDisplay.php"; ?>
-                    </div>
-                </div>
-            </div>
-        ');
-
-        if (!$_SESSION['nickname']) {
-            echo ('
-                <div id="signForComment" class="text-center">
-                    <h2 class="my-5"><b>Join us to comment<b></h2>
-                    <h4 class="mt-4">Sign up or log in to share about this song</h4>
-                </div> 
-            </div>
-        ');
-        } else {
-            include_once 'comment-form.php';
-        }
-
+    if (isset($_SESSION['songId'])) {
+        include_once "../apps/comments-display.php";
     } else {
         echo ('
             <div id="playSongInvitation" class="text-center">

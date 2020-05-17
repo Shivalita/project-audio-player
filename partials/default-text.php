@@ -2,7 +2,7 @@
 <?php
 include_once './partials/start-session.php';
 
-if ($_SESSION) {
+if (isset($_SESSION['nickname'])) {
     return `
     <div id="welcomeBack" class="text-center">
         <h2 class="my-5"><b>Welcome back `.$_SESSION['nickname'].` !<b></h2>

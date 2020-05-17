@@ -27,25 +27,74 @@ html.addEventListener('click', function(event) {
    }
 })
 
+
 /* Tab system */
-let contentDiv = document.querySelector('#content');
-let partial;
+let tabs = document.querySelectorAll('.tab');
 
 /* get php partial to be displayed in content */
 async function getPartial(url) {
-    let response =  await fetch(url)
+    let response =  await fetch(url);
     let result = await response.text();
-    storePartial(result);
+    return result;
 }
 
-function storePartial(partialData) {
-    partial = partialData;
+function displayPartial(partial) {
+    document.querySelector('#content').innerHTML = partial;
 }
 
-/* Check if hash changes in url */
-window.addEventListener('hashchange', async function() {
-    if (window.location.hash === '#comments') {
-        await getPartial('./partials/comments.php');
-        contentDiv.innerHTML = partial;
-    }
-})
+/* Check if tab button is clicked , get tab's partial and display it*/
+for (let i = 0; i < tabs.length; i++) {
+    tabs[i].addEventListener('click', async function(event) {
+        if (event.target.innerHTML === 'Now playing') {
+            let partial = await getPartial('./partials/now-playing.php');
+            displayPartial(partial);
+            let albumSongs = document.querySelectorAll('.albumSong');
+            for (let j = 0; j < albumSongs.length; j++) {
+                albumSongs[j].addEventListener('click', function() {
+                    let songName = albumSongs[j].innerText.substring(4);
+                    console.log(songName);
+                        // let songPicked = await getSong('./apps/get-song.php');
+                        // let songLink = await songPicked;
+                    
+                })     
+            }
+        } else if (event.target.innerHTML == 'Comments') {
+            let partial = await getPartial('./partials/comments.php');
+            displayPartial(partial)
+        } else if (event.target.innerHTML === 'Popular playlists') {
+            let partial = await getPartial('./partials/popular-playlists.php');
+            displayPartial(partial);
+        } else if (event.target.innerHTML === 'New releases') {
+            let partial = await getPartial('./partials/new-releases.php');
+            displayPartial(partial);
+        } 
+    })     
+}
+
+
+/* Get song picked and set new song's src */
+// async function getPartial(url) {
+//     let response =  await fetch(url);
+//     let result = await response.text();
+//     return result;
+// }
+
+// async function getAlbumSongs() {
+//     let albumSongs = document.querySelectorAll('.albumSong');
+//     albumSongs.forEach(song => {
+//     console.log(song)
+// });
+// }
+
+
+
+// for (let j = 0; j < albumSongs.length; j++) {
+//     console.log(albumSongs[j])
+//     albumSongs[j].addEventListener('click', function(event) {
+//         console.log('ok')
+//         console.log(event);
+//             // let songPicked = await getSong('./apps/get-song.php');
+//             // let songLink = await songPicked;
+         
+//     })     
+// }
