@@ -4,7 +4,7 @@
     <?php include_once './partials/add-playlist-btn.php';?>
 
     <div class="d-flex text-center" id="playerTitleArtist">
-        <h5>Title - Artist</h5>
+        <h5 class="text-white mb-4">Title - Artist</h5>
     </div>
     
     <div class="d-flex justify-content-around">

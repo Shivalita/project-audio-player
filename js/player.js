@@ -307,25 +307,18 @@ function clickProgress(idPlayer, control, event) {
 
 
 /* Check if player is playing a song */
-player.addEventListener('playing', function(event) {
+player.addEventListener('playing', async function(event) {
     /* Store song's source */
     let currentSong = event.originalTarget.src;
     let formData = new FormData;
     formData.append('link', currentSong); 
 
-    /* Send song's source to php for processing (get id)  */
-    fetch('./apps/song-id.php', {
+    /* Send song's source to php for processing (get artist and title) and display it */
+    let songTitleDiv = document.querySelector('#playerTitleArtist');
+    let response = await fetch('./apps/get-song-data.php', {
         method: 'POST',
         body: formData
     })
-    .then(response => {
-        if(response.ok) {
-            return response.link;
-        } else {
-            console.log('response error');
-        }
-    })
-    .catch(error => {
-        console.log(error);
-    })
+    let songDisplay = await response.text();
+    songTitleDiv.innerHTML = songDisplay;
 })

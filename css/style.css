@@ -119,11 +119,12 @@ input {
 }
 
 #row1 {
-    height: 80%;
+    height: 75%;
 }
 
 #row2 {
     height: 20%;
+    margin-bottom: 2vw;
 }
 
 #main {
@@ -131,7 +132,7 @@ input {
 }
 
 /*style our aside*/
-#disconnect {
+#disconnectBtn {
     position: absolute;
     bottom: 5%;
     left: 5%;
@@ -193,4 +194,63 @@ button:hover {
 
 #progressBarControl:hover {
     cursor: pointer;
+}
+
+.avatarInput {
+    background-color: #000;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.blackBtn {
+    background-color: #000;
+    color: #fff; 
+}
+
+.nickname {
+    color: #845EC2;
+}
+
+.avatar {
+    height: 5vw;
+    width: auto;
+    border-radius: 5%;
+}
+
+.coverContainer {
+    height: 20vw;
+    width: auto;
+}
+    
+#side {
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    border-image-source: linear-gradient(45deg, #5a80b9, #845EC2);
+    border-image-slice: 1;
+    margin-bottom: 1vw;
+}
+
+.songColumn {
+    margin-top: 2vw;
+}
+
+#albumImg {
+    margin-top: 9vw;
+    margin-bottom: 5vw;
+    transform: scale(1.5);
+}
+
+#addPlaylistBtn {
+    margin-top: 1vw;
+}
+
+#SongsList {
+    margin-bottom: 3vw;
+}
+
+.albumSong {
+    padding-top: 0.3vw;
+    padding-bottom: 0.3vw;
+    cursor: pointer;
+    border-radius: 0%;
 }
