@@ -1,4 +1,4 @@
-async function getNextCover(nextSrc) {
+async function getNextCover() {
     console.log('getNextCover starts');
     console.log('le lien de la next cover :',  nextSrc);
     let data = new FormData;
@@ -21,7 +21,7 @@ async function oskourNext(url, method, body) {
     return results.nextCover;
 }
 
-async function getPrevCover(prevSrc) {
+async function getPrevCover() {
     console.log('getPrevCover starts');
     let data = new FormData;
     data.append('PrevCover', prevSrc);

@@ -1,5 +1,5 @@
 const html = document.querySelector('html');
-const button = document.querySelector('#appearBtn');
+const button = document.querySelector('#arrow');
 const spanBtn = document.querySelector('#spanAppearBtn');
 const aside = document.querySelector('#side');
 const main = document.querySelector('#main');

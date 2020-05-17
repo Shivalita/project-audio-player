@@ -9,9 +9,14 @@ let nextSrc = "";
 let prevSrc = "";
 
 // Listen for the music ended event, to play the next audio file
-player.addEventListener('ended', next, false);
-player.addEventListener('ended', searchNext(nextSrc));
-player.addEventListener('ended', searchPrev(prevSrc));
+player.addEventListener('ended', function() {
+    next();
+    searchNext();
+    searchPrev();
+    injectNextPrev();
+}, false);
+// player.addEventListener('ended', searchNext(), false);
+// player.addEventListener('ended', searchPrev(), false);
 
 //stop function
 function stop() {
@@ -91,6 +96,8 @@ async function random(url) {
     }    
 }
 
+//ce qu'il aurait fallu faire : créer un obj pour chaque chanson où on stock toutes les infos de la table
+//et du coup appeler en une fois
 /////////////////////////////////////////////////////////
 let imgCoverPrev = document.querySelector('#imgCoverPrev');
 let artistTitlePrev = document.querySelector('#artistTitlePrev');
@@ -98,56 +105,43 @@ let imgCoverNext = document.querySelector('#imgCoverNext');
 let artistTitleNext = document.querySelector('#artistTitleNext');
 
 async function injectNextPrev(goNext, goPrev) {
-    console.log('injectNextPrev se lance');
     //check if current playlist is not empty
         if(currentPlaylist.length !== 0) {
-            console.log('playlist not empty');
     //check if current song is not the first song, then prev
         if (i !== 0) {
-            console.log('not the first song');
-            imgCoverPrev.src = prevSrc;
+            let superPrevCover = await getPrevCover();
+            imgCoverPrev.src = superPrevCover.album_image;
             artistTitlePrev.innerHTML = `<h5>${goPrev.title} - ${goPrev.name}</h5>`;
-            console.log('title and name: ', goPrev.title, goPrev.name);
         }
     //check if current song is not the last song, then next
         if (i !== currentPlaylist.length - 1) {
-            console.log('not the last song');
-            console.log('lien de la next cover: ', nextSrc);
-            console.log('goNext', goNext);
-            console.log('goNext.title', goNext.title);
-                imgCoverNext.src = nextSrc;
-                artistTitleNext.innerHTML = `<h5>${goNext.title} - ${goNext.name}</h5>`;
+            let superNextCover = await getNextCover();
+            console.log('superNextCover', superNextCover);
+            imgCoverNext.src = superNextCover.album_image;
+            artistTitleNext.innerHTML = `<h5>${goNext.title} - ${goNext.name}</h5>`;
         }
     }
 }
 
 async function getNext(url, method, body) {
-    console.log('get next se lance');
     let response = await fetch(url, method, body);
-    console.log('response: ', response);
     let results = await response.json();
-    console.log('results: ', results);
     return results;
 }
 
-async function searchNext(nextSrc) {
-    console.log('searchNext se lance');
-    console.log('currentPlaylist.length: ', currentPlaylist.length);
+async function searchNext() {
     //check if current playlist is not empty
     if(currentPlaylist.length !== 0) {
     //check if current song is not the last song
         if (i !== currentPlaylist.length - 1) {
         nextSrc = currentPlaylist[i+1].link;
-        console.log('nextSrc: ', nextSrc);
 
         let data = new FormData;
         data.append('nextLink', nextSrc);
-        console.log('form data :', data);
 
         let myNext = await getNext('./apps/getPrevAndNext.php', {
             method: 'POST',
             body: data});
-        console.log('myNext', myNext);
         return myNext;
         }
     }
@@ -155,41 +149,63 @@ async function searchNext(nextSrc) {
 }
 
 async function getPrev(url, method, body) {
-    console.log('get prev se lance');
     let response = await fetch(url, method, body);
-    console.log('response: ', response);
     let results = await response.json();
-    console.log('results: ', results);
     return results;
 }
 
-async function searchPrev(prevSrc) {
-    console.log('searchPrev se lance');
-    console.log('currentPlaylist.length: ', currentPlaylist.length);
+async function searchPrev() {
     //check if current playlist is not empty
     if(currentPlaylist.length !== 0) {
     //check if current song is not the first song
         if (i !== 0) {
         prevSrc = currentPlaylist[i-1].link;
-        console.log('prevSrc: ', prevSrc);
 
         let data = new FormData;
         data.append('prevLink', prevSrc);
-        console.log('form data :', data);
 
         let myPrev = await getPrev('./apps/getPrevAndNext.php', {
             method: 'POST',
             body: data});
-        console.log('myPrev', myPrev);
         return myPrev;
         }
     }
 }
 
+async function getNextCover() {
+    let data = new FormData;
+    data.append('nextCover', nextSrc);
+
+    let coverNext = await oskourNext('./apps/getPrevAndNext.php', {
+        method: 'POST',
+        body: data});
+    return coverNext;         
+}
+
+async function oskourNext(url, method, body) {
+    let response = await fetch(url, method, body);
+    let results = await response.json();
+    return results;
+}
+
+async function getPrevCover() {
+    let data = new FormData;
+    data.append('prevCover', prevSrc);
+
+    let coverPrev = await oskourPrev('./apps/getPrevAndNext.php', {
+        method: 'POST',
+        body: data});
+    return coverPrev;         
+}
+
+async function oskourPrev(url, method, body) {
+    let response = await fetch(url, method, body);
+    let results = await response.json();
+    return results;
+}
+
 async function connard() {
-    console.log('connard se lance');
     await random('./apps/get-playlists.php?random');
-    console.log('random est finie');
     let goNext = await searchNext(nextSrc);
     let goPrev = await searchPrev(prevSrc);
     await injectNextPrev(goNext, goPrev);
@@ -197,7 +213,7 @@ async function connard() {
 ////////////////////////////////////////////////////////////////
 
 // function for moving to next audio file
-function next() {
+async function next() {
     // Check for last audio file in the playlist
     if (i === currentPlaylist.length - 1) {
         i = 0;
@@ -208,9 +224,12 @@ function next() {
     stop();
     player.src = currentPlaylist[i].link;
     player.play();
+    let goNext = await searchNext(nextSrc);
+    let goPrev = await searchPrev(prevSrc);
+    await injectNextPrev(goNext, goPrev);
 }
 
-function prev() {
+async function prev() {
     // Check for last audio file in the playlist
     if (i === 0) {
         i = currentPlaylist.length - 1;
@@ -221,6 +240,9 @@ function prev() {
     stop();
     player.src = currentPlaylist[i].link;
     player.play();
+    let goNext = await searchNext(nextSrc);
+    let goPrev = await searchPrev(prevSrc);
+    await injectNextPrev(goNext, goPrev);
 }
 
 
@@ -309,7 +331,7 @@ function clickProgress(idPlayer, control, event) {
 /* Check if player is playing a song */
 player.addEventListener('playing', async function(event) {
     /* Store song's source */
-    let currentSong = event.originalTarget.src;
+    let currentSong = event.target.src;
     let formData = new FormData;
     formData.append('link', currentSong); 
 

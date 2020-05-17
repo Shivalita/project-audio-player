@@ -18,11 +18,11 @@ if(!empty($_POST['prevCover'])) {
     $prevCover = ($_POST['prevCover']);
 
     function prevCover($prevCover) {
-    global $database;
-    $req = $database->prepare("SELECT songs.title, albums.album_image from songs INNER JOIN albums ON songs.album_id = albums.id WHERE songs.link = ?");
-    $req->execute([$prevCover]);
-    $prevCover = $req->fetch(PDO::FETCH_ASSOC);
-    echo json_encode($prevCover);
+        global $database;
+        $req = $database->prepare("SELECT albums.album_image from albums INNER JOIN songs ON albums.id = songs.album_id WHERE songs.link = ?");
+        $req->execute([$prevCover]);
+        $prevCover = $req->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($prevCover);
     };
     prevCover($prevCover);
 }
@@ -44,11 +44,11 @@ if(!empty($_POST['nextCover'])) {
     $nextCover = ($_POST['nextCover']);
 
     function nextCover($nextCover) {
-    global $database;
-    $req = $database->prepare("SELECT songs.title, albums.album_image from songs INNER JOIN albums ON songs.album_id = albums.id WHERE songs.link = ?");
-    $req->execute([$nextCover]);
-    $nextCover = $req->fetch(PDO::FETCH_ASSOC);
-    echo json_encode($nextCover);
+        global $database;
+        $req = $database->prepare("SELECT albums.album_image from albums INNER JOIN songs ON albums.id = songs.album_id WHERE songs.link = ?");
+        $req->execute([$nextCover]);
+        $nextCover = $req->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($nextCover);
     };
     nextCover($nextCover);
 }

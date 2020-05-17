@@ -72,12 +72,21 @@ input {
     cursor: text;
 }
 
-#searchBtn:active {
+#appearBtn {
+	color: white;
+	cursor: pointer;
+	border-radius: 50%;
+    border: 2px solid transparent;
+	background: linear-gradient(#000, #000) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
+    transition: all 200ms ease;
+}
+
+#searchBtn:active, #appearBtn:active {
 	background: linear-gradient(#00C9A7, #845EC2) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
     transition: all 200ms ease;
 }
 
-#searchBtn:hover {
+#searchBtn:hover, #appearBtn:hover {
     color: #845EC2;
     transition: all 200ms ease;
 }
@@ -152,13 +161,13 @@ input {
     justify-content: space-evenly;
 }
 
-/*on stylise le bouton qui permet de faire appraître le aside en vue mobile*/
+/*on stylise le bouton qui permet de faire apparaître le aside en vue mobile*/
 #spanAppearBtn {
     z-index: 1;
     /* display: block; */
     position: fixed;
     left: 0px;
-    top: 10%;
+    top: 20%;
 }
 
 button:hover {
@@ -223,9 +232,9 @@ button:hover {
 }
     
 #side {
-    border-right: 1px solid;
+    /* border-right: 1px solid;
     border-bottom: 1px solid;
-    border-image-source: linear-gradient(45deg, #5a80b9, #845EC2);
+    border-image-source: linear-gradient(45deg, #5a80b9, #845EC2); */
     border-image-slice: 1;
     margin-bottom: 1vw;
 }
