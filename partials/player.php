@@ -11,7 +11,7 @@
         <div>
             <button class="control" onclick="mute('audioPlayer')">Mute</button>
             <button class="control" onclick="loop('audioPlayer')">Loop</button>
-            <button class="control" onclick="random('./apps/get-songs.php?random')">Random</button>
+            <button class="control" onclick="connard()">Random</button>
         </div>
         
         <div>

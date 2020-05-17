@@ -1,11 +1,17 @@
 //select our player in DOM
 let player = document.querySelector('#audioPlayer');
+//declare our empty array for playlists to come
+let currentPlaylist = [];
+// Current index of the files array
+let i = 0;
+
+let nextSrc = "";
+let prevSrc = "";
 
 // Listen for the music ended event, to play the next audio file
 player.addEventListener('ended', next, false);
-
-//declare our empty array for playlists to come
-let currentPlaylist = [];
+player.addEventListener('ended', searchNext(nextSrc));
+player.addEventListener('ended', searchPrev(prevSrc));
 
 //stop function
 function stop() {
@@ -76,16 +82,119 @@ async function random(url) {
         const results = await response.json();
         results.map(function(data) {
             currentPlaylist.push(data);
-            currentPlaylist = shuffle(currentPlaylist);
-        });player.src = currentPlaylist[0].link;
+        });
+        currentPlaylist = shuffle(currentPlaylist);
+        player.src = currentPlaylist[0].link;       
         //if currentPlaylist array is full, empty it
     } else {
         currentPlaylist = [];
     }    
 }
 
-// Current index of the files array
-let i = 0;
+/////////////////////////////////////////////////////////
+let imgCoverPrev = document.querySelector('#imgCoverPrev');
+let artistTitlePrev = document.querySelector('#artistTitlePrev');
+let imgCoverNext = document.querySelector('#imgCoverNext');
+let artistTitleNext = document.querySelector('#artistTitleNext');
+
+async function injectNextPrev(goNext, goPrev) {
+    console.log('injectNextPrev se lance');
+    //check if current playlist is not empty
+        if(currentPlaylist.length !== 0) {
+            console.log('playlist not empty');
+    //check if current song is not the first song, then prev
+        if (i !== 0) {
+            console.log('not the first song');
+            imgCoverPrev.src = prevSrc;
+            artistTitlePrev.innerHTML = `<h5>${goPrev.title} - ${goPrev.name}</h5>`;
+            console.log('title and name: ', goPrev.title, goPrev.name);
+        }
+    //check if current song is not the last song, then next
+        if (i !== currentPlaylist.length - 1) {
+            console.log('not the last song');
+            console.log('lien de la next cover: ', nextSrc);
+            console.log('goNext', goNext);
+            console.log('goNext.title', goNext.title);
+                imgCoverNext.src = nextSrc;
+                artistTitleNext.innerHTML = `<h5>${goNext.title} - ${goNext.name}</h5>`;
+        }
+    }
+}
+
+async function getNext(url, method, body) {
+    console.log('get next se lance');
+    let response = await fetch(url, method, body);
+    console.log('response: ', response);
+    let results = await response.json();
+    console.log('results: ', results);
+    return results;
+}
+
+async function searchNext(nextSrc) {
+    console.log('searchNext se lance');
+    console.log('currentPlaylist.length: ', currentPlaylist.length);
+    //check if current playlist is not empty
+    if(currentPlaylist.length !== 0) {
+    //check if current song is not the last song
+        if (i !== currentPlaylist.length - 1) {
+        nextSrc = currentPlaylist[i+1].link;
+        console.log('nextSrc: ', nextSrc);
+
+        let data = new FormData;
+        data.append('nextLink', nextSrc);
+        console.log('form data :', data);
+
+        let myNext = await getNext('./apps/getPrevAndNext.php', {
+            method: 'POST',
+            body: data});
+        console.log('myNext', myNext);
+        return myNext;
+        }
+    }
+    
+}
+
+async function getPrev(url, method, body) {
+    console.log('get prev se lance');
+    let response = await fetch(url, method, body);
+    console.log('response: ', response);
+    let results = await response.json();
+    console.log('results: ', results);
+    return results;
+}
+
+async function searchPrev(prevSrc) {
+    console.log('searchPrev se lance');
+    console.log('currentPlaylist.length: ', currentPlaylist.length);
+    //check if current playlist is not empty
+    if(currentPlaylist.length !== 0) {
+    //check if current song is not the first song
+        if (i !== 0) {
+        prevSrc = currentPlaylist[i-1].link;
+        console.log('prevSrc: ', prevSrc);
+
+        let data = new FormData;
+        data.append('prevLink', prevSrc);
+        console.log('form data :', data);
+
+        let myPrev = await getPrev('./apps/getPrevAndNext.php', {
+            method: 'POST',
+            body: data});
+        console.log('myPrev', myPrev);
+        return myPrev;
+        }
+    }
+}
+
+async function connard() {
+    console.log('connard se lance');
+    await random('./apps/get-playlists.php?random');
+    console.log('random est finie');
+    let goNext = await searchNext(nextSrc);
+    let goPrev = await searchPrev(prevSrc);
+    await injectNextPrev(goNext, goPrev);
+}
+////////////////////////////////////////////////////////////////
 
 // function for moving to next audio file
 function next() {
