@@ -16,5 +16,7 @@ if (!empty($_POST['comment'])) {
         'comment' => $comment,
         'song_id' => $songId
     ));
+
+    header('Location: ../index.php');
 }
 ?>

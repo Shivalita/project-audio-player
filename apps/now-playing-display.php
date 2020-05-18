@@ -39,23 +39,18 @@ if (isset($_SESSION['songId'])) {
     <div class="container justify-content-around">
         <div class="row text-center">
             <div class="col-6 px-2 songColumn">
-                <div class="col-12 mt-5">
-                    <?php 
-                    echo ('<h5 class="text-white mt-5">'.$songTitle.' - '.$artistName.'</h5>');
-                    ?>
-                </div>
                 <div class="col-12 mt-5 align-items-center">
                         <img id="albumImg" class="img-fluid control" src="<?=$albumImg?>" alt="">
                 </div>
                 <div class="col-12">
-                    <?= include_once '../partials/add-playlist-btn.php'; ?>
+                    <?php include_once '../partials/add-playlist-btn.php'; ?>
                 </div>
             </div>
 
             <div class="col-6 px-2 songColumn">
                 <div id="SongsList" class="col-12 mt-5">
                     <?php 
-                    echo ('<h5 class="text-white my-5">'.$albumTitle.'</h5>');
+                    echo ('<h5 class="text-white mt-5 mb-4">'.$albumTitle.'</h5>');
                     ?>
                 </div>
                 <div class="row">
@@ -66,15 +61,14 @@ if (isset($_SESSION['songId'])) {
                         $albumSongsQuery->execute([$songAlbumId]);
                         $albumSongs = $albumSongsQuery->fetchAll(PDO::FETCH_ASSOC);
 
-                        $midCount = ceil(count($albumSongs)/2);
-                        $midNumber = str_pad($midCount, 2, '0' ,STR_PAD_LEFT);
+                        $midNumber = ceil(count($albumSongs)/2);
 
                         for ($i = 0; $i < $midNumber; $i++) { 
                             echo ('
                                 <div class="col-12 my-2">
                                     <p class="text-white control albumSong">
                             ');
-                            echo (($i + 1).'. '.$albumSongs[$i]['title']);
+                            echo ($albumSongs[$i]['title']);
                             echo ('
                                     </p>
                                 </div>
@@ -91,7 +85,7 @@ if (isset($_SESSION['songId'])) {
                                 <div class="col-12 my-2">
                                     <p class="text-white control albumSong">
                             ');
-                                echo (($i + 1).'. '.$albumSongs[$i]['title']);
+                                echo ($albumSongs[$i]['title']);
                             echo ('
                                     </p>
                                 </div>

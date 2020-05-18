@@ -30,6 +30,7 @@ html.addEventListener('click', function(event) {
 
 /* Tab system */
 let tabs = document.querySelectorAll('.tab');
+let songTitleDiv = document.querySelector('#playerTitleArtist');
 
 /* get php partial to be displayed in content */
 async function getPartial(url) {
@@ -42,59 +43,54 @@ function displayPartial(partial) {
     document.querySelector('#content').innerHTML = partial;
 }
 
+function setSong(songLink) {
+    player.src = songLink;
+    player.play();
+}
+
+function refreshSongDisplay(newSongData) {
+    songTitleDiv.innerHTML = newSongData;
+}
+
 /* Check if tab button is clicked , get tab's partial and display it*/
 for (let i = 0; i < tabs.length; i++) {
     tabs[i].addEventListener('click', async function(event) {
         if (event.target.innerHTML === 'Now playing') {
             let partial = await getPartial('./partials/now-playing.php');
             displayPartial(partial);
+            
+            /* Get song when clicked in album's list, and set player's src */
             let albumSongs = document.querySelectorAll('.albumSong');
             for (let j = 0; j < albumSongs.length; j++) {
-                albumSongs[j].addEventListener('click', function() {
-                    let songName = albumSongs[j].innerText.substring(4);
-                    console.log(songName);
-                        // let songPicked = await getSong('./apps/get-song.php');
-                        // let songLink = await songPicked;
+                albumSongs[j].addEventListener('click', async function() {
+                    let songName = albumSongs[j].innerText;
+                    let songFormData = new FormData;
+                    songFormData.append('songName', songName); 
+
+                    let getSongLink = await fetch('./apps/get-song.php', {
+                        method: 'POST',
+                        body: songFormData
+                })
+                    let songLink = await getSongLink.text();
+                    setSong(songLink);
+
+                    /* Refresh song's display */
+                    let refreshSong = await fetch('./apps/now-playing-display.php');
+                    let newSongData = await refreshSong.text();
+                    console.log(newSongData)
+                    refreshSongDisplay(newSongData);
                     
-                })     
+                })    
             }
         } else if (event.target.innerHTML == 'Comments') {
             let partial = await getPartial('./partials/comments.php');
-            displayPartial(partial)
+            displayPartial(partial);
         } else if (event.target.innerHTML === 'Popular playlists') {
-            let partial = await getPartial('./partials/popular-playlists.php');
+            let partial = await getPartial('./partials/coming-soon.php');
             displayPartial(partial);
         } else if (event.target.innerHTML === 'New releases') {
-            let partial = await getPartial('./partials/new-releases.php');
+            let partial = await getPartial('./partials/coming-soon.php');
             displayPartial(partial);
         } 
     })     
 }
-
-
-/* Get song picked and set new song's src */
-// async function getPartial(url) {
-//     let response =  await fetch(url);
-//     let result = await response.text();
-//     return result;
-// }
-
-// async function getAlbumSongs() {
-//     let albumSongs = document.querySelectorAll('.albumSong');
-//     albumSongs.forEach(song => {
-//     console.log(song)
-// });
-// }
-
-
-
-// for (let j = 0; j < albumSongs.length; j++) {
-//     console.log(albumSongs[j])
-//     albumSongs[j].addEventListener('click', function(event) {
-//         console.log('ok')
-//         console.log(event);
-//             // let songPicked = await getSong('./apps/get-song.php');
-//             // let songLink = await songPicked;
-         
-//     })     
-// }
