@@ -8,7 +8,6 @@ const main = document.querySelector('#main');
 html.addEventListener('click', function(event) {
     if (window.matchMedia("(max-width:768px)").matches) {
        if (event.target === button) {
-           console.log("j'ai cliqué sur le bouton", event.target);
            spanBtn.classList.remove('d-block', 'd-sm-block');
            spanBtn.classList.add('d-none');
            aside.classList.remove('d-none');
@@ -16,7 +15,6 @@ html.addEventListener('click', function(event) {
            main.classList.remove('col-12');
            main.classList.add('col-10')
        } else {
-           console.log('j\'ai cliqué sur autre chose', event.target);
            spanBtn.classList.remove('d-none');
            spanBtn.classList.add('d-block', 'd-sm-block');
            aside.classList.remove('animationAppear', 'd-block');
@@ -74,10 +72,9 @@ for (let i = 0; i < tabs.length; i++) {
                     let songLink = await getSongLink.text();
                     setSong(songLink);
 
-                    /* Refresh song's display */
+                    /* Refresh song's display - DON'T WORK, DIDN'T HAVE TIME TO DEBUG */ 
                     let refreshSong = await fetch('./apps/now-playing-display.php');
                     let newSongData = await refreshSong.text();
-                    console.log(newSongData)
                     refreshSongDisplay(newSongData);
                     
                 })    

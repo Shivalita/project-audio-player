@@ -10,6 +10,5 @@ async function getResults(url, method, body) {
             <li>${element.playlist_title}</li>
         `
     }).join('');
-    console.log('onTest: ',  onTest);
     return onTest;
 }
