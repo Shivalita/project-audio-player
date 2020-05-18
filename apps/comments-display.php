@@ -9,14 +9,9 @@ $commentsCount = 0;
 
 foreach ($comments as $comment) {
     if ($comment['song_id'] === $_SESSION['songId']) {
-        echo (' 
-            <div class="row justify-content-around mt-5">
-                <div class="col-12 mb-4 text-white comment">');
-                    echo ($comment['created_at'].' - <b class="text-white">'.$comment['nickname'].'</b> : '.$comment['comment'].'<br>');
-                echo ('</div>
-            <div class="row mt-5">
-            <div class="container justify-content-around mt-5">
-                <div class="row justify-content-around text-center">
+        echo ('<div class="col-12 text-white comment mb-5">');
+            echo ($comment['created_at'].' - <b class="text-white">'.$comment['nickname'].'</b> : '.$comment['comment'].'<br>');
+        echo ('</div>
         ');
         $commentsCount++;
     } 
@@ -24,26 +19,27 @@ foreach ($comments as $comment) {
 
 if ($commentsCount === 0) {
     echo ('
-    <div class="row justify-content-around text-center mt-4">
-        <div id="noCommentsYet" class="col-12 mb-5">
-            <h2 class="my-5"><b class="text-white">This song hasn\'t been commented yet<b></h2>
-            <h4 class="text-white my-4">Be the first one to share thoughts and feelings about this song</h4>
-        </div>');
+        <div class="row justify-content-center text-center mt-4">
+            <div id="noCommentsYet" class="col-12 mb-5">
+                <h2 class="my-5"><b class="text-white">This song hasn\'t been commented yet<b></h2>
+                <h4 class="text-white my-4">Be the first one to share thoughts and feelings about this song</h4>
+            </div>
+        </div>
+    ');
 }
 
 
 if (!isset($_SESSION['nickname'])) {
     echo (' 
-            <div class="row justify-content-around text-center mt-5">
-                <div id="signForComment" class="col-12">
-                    <h2 class="my-5"><b class="text-white">Join us to comment<b></h2>
-                    <h4 class="text-white mt-4">Sign up or log in to share about this song</h4>
-                </div>
+        <div class="row justify-content-center text-center mt-5">
+            <div id="signForComment" class="col-12">
+                <h2 class="my-5"><b class="text-white">Join us to comment<b></h2>
+                <h4 class="text-white mt-4">Sign up or log in to share about this song</h4>
+            </div>
+        </div>
         ');
-} else {
+} else if ($_SESSION['songId']) {
     include_once 'comment-form.php';
 }
 
-echo ('
-    </div>
-');
+// echo ('</div>');

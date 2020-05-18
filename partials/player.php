@@ -11,7 +11,7 @@
         <div>
             <button class="control" onclick="mute('audioPlayer')">Mute</button>
             <button class="control" onclick="loop('audioPlayer')">Loop</button>
-            <button class="control" onclick="connard()">Random</button>
+            <button class="control" onclick="letsRandom()">Random</button>
         </div>
         
         <div>

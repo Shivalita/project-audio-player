@@ -24,4 +24,4 @@ async function getArtist(url, init) {
     }
 }
 
-getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=perturbator", myInit);
+getArtist("https://deezerdevs-deezer.p.rapidapi.com/search?q=system of a down", myInit);

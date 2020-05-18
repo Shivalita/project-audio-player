@@ -116,7 +116,6 @@ async function injectNextPrev(goNext, goPrev) {
     //check if current song is not the last song, then next
         if (i !== currentPlaylist.length - 1) {
             let superNextCover = await getNextCover();
-            console.log('superNextCover', superNextCover);
             imgCoverNext.src = superNextCover.album_image;
             artistTitleNext.innerHTML = `<h5>${goNext.title} - ${goNext.name}</h5>`;
         }
@@ -204,7 +203,7 @@ async function oskourPrev(url, method, body) {
     return results;
 }
 
-async function connard() {
+async function letsRandom() {
     await random('./apps/get-playlists.php?random');
     let goNext = await searchNext(nextSrc);
     let goPrev = await searchPrev(prevSrc);
