@@ -1,11 +1,22 @@
 //select our player in DOM
 let player = document.querySelector('#audioPlayer');
-
-// Listen for the music ended event, to play the next audio file
-player.addEventListener('ended', next, false);
-
 //declare our empty array for playlists to come
 let currentPlaylist = [];
+// Current index of the files array
+let i = 0;
+
+let nextSrc = "";
+let prevSrc = "";
+
+// Listen for the music ended event, to play the next audio file
+player.addEventListener('ended', function() {
+    next();
+    searchNext();
+    searchPrev();
+    injectNextPrev();
+}, false);
+// player.addEventListener('ended', searchNext(), false);
+// player.addEventListener('ended', searchPrev(), false);
 
 //stop function
 function stop() {
@@ -76,19 +87,133 @@ async function random(url) {
         const results = await response.json();
         results.map(function(data) {
             currentPlaylist.push(data);
-            currentPlaylist = shuffle(currentPlaylist);
-        });player.src = currentPlaylist[0].link;
+        });
+        currentPlaylist = shuffle(currentPlaylist);
+        player.src = currentPlaylist[0].link;       
         //if currentPlaylist array is full, empty it
     } else {
         currentPlaylist = [];
     }    
 }
 
-// Current index of the files array
-let i = 0;
+//ce qu'il aurait fallu faire : créer un obj pour chaque chanson où on stock toutes les infos de la table
+//et du coup appeler en une fois
+/////////////////////////////////////////////////////////
+let imgCoverPrev = document.querySelector('#imgCoverPrev');
+let artistTitlePrev = document.querySelector('#artistTitlePrev');
+let imgCoverNext = document.querySelector('#imgCoverNext');
+let artistTitleNext = document.querySelector('#artistTitleNext');
+
+async function injectNextPrev(goNext, goPrev) {
+    //check if current playlist is not empty
+        if(currentPlaylist.length !== 0) {
+    //check if current song is not the first song, then prev
+        if (i !== 0) {
+            let superPrevCover = await getPrevCover();
+            imgCoverPrev.src = superPrevCover.album_image;
+            artistTitlePrev.innerHTML = `<h5>${goPrev.title} - ${goPrev.name}</h5>`;
+        }
+    //check if current song is not the last song, then next
+        if (i !== currentPlaylist.length - 1) {
+            let superNextCover = await getNextCover();
+            console.log('superNextCover', superNextCover);
+            imgCoverNext.src = superNextCover.album_image;
+            artistTitleNext.innerHTML = `<h5>${goNext.title} - ${goNext.name}</h5>`;
+        }
+    }
+}
+
+async function getNext(url, method, body) {
+    let response = await fetch(url, method, body);
+    let results = await response.json();
+    return results;
+}
+
+async function searchNext() {
+    //check if current playlist is not empty
+    if(currentPlaylist.length !== 0) {
+    //check if current song is not the last song
+        if (i !== currentPlaylist.length - 1) {
+        nextSrc = currentPlaylist[i+1].link;
+
+        let data = new FormData;
+        data.append('nextLink', nextSrc);
+
+        let myNext = await getNext('./apps/getPrevAndNext.php', {
+            method: 'POST',
+            body: data});
+        return myNext;
+        }
+    }
+    
+}
+
+async function getPrev(url, method, body) {
+    let response = await fetch(url, method, body);
+    let results = await response.json();
+    return results;
+}
+
+async function searchPrev() {
+    //check if current playlist is not empty
+    if(currentPlaylist.length !== 0) {
+    //check if current song is not the first song
+        if (i !== 0) {
+        prevSrc = currentPlaylist[i-1].link;
+
+        let data = new FormData;
+        data.append('prevLink', prevSrc);
+
+        let myPrev = await getPrev('./apps/getPrevAndNext.php', {
+            method: 'POST',
+            body: data});
+        return myPrev;
+        }
+    }
+}
+
+async function getNextCover() {
+    let data = new FormData;
+    data.append('nextCover', nextSrc);
+
+    let coverNext = await oskourNext('./apps/getPrevAndNext.php', {
+        method: 'POST',
+        body: data});
+    return coverNext;         
+}
+
+async function oskourNext(url, method, body) {
+    let response = await fetch(url, method, body);
+    let results = await response.json();
+    return results;
+}
+
+async function getPrevCover() {
+    let data = new FormData;
+    data.append('prevCover', prevSrc);
+
+    let coverPrev = await oskourPrev('./apps/getPrevAndNext.php', {
+        method: 'POST',
+        body: data});
+    return coverPrev;         
+}
+
+async function oskourPrev(url, method, body) {
+    let response = await fetch(url, method, body);
+    let results = await response.json();
+    return results;
+}
+
+async function connard() {
+    await random('./apps/get-playlists.php?random');
+    let goNext = await searchNext(nextSrc);
+    let goPrev = await searchPrev(prevSrc);
+    await injectNextPrev(goNext, goPrev);
+}
+////////////////////////////////////////////////////////////////
 
 // function for moving to next audio file
-function next() {
+async function next() {
     // Check for last audio file in the playlist
     if (i === currentPlaylist.length - 1) {
         i = 0;
@@ -99,9 +224,12 @@ function next() {
     stop();
     player.src = currentPlaylist[i].link;
     player.play();
+    let goNext = await searchNext(nextSrc);
+    let goPrev = await searchPrev(prevSrc);
+    await injectNextPrev(goNext, goPrev);
 }
 
-function prev() {
+async function prev() {
     // Check for last audio file in the playlist
     if (i === 0) {
         i = currentPlaylist.length - 1;
@@ -112,6 +240,9 @@ function prev() {
     stop();
     player.src = currentPlaylist[i].link;
     player.play();
+    let goNext = await searchNext(nextSrc);
+    let goPrev = await searchPrev(prevSrc);
+    await injectNextPrev(goNext, goPrev);
 }
 
 
@@ -200,7 +331,7 @@ function clickProgress(idPlayer, control, event) {
 /* Check if player is playing a song */
 player.addEventListener('playing', async function(event) {
     /* Store song's source */
-    let currentSong = event.originalTarget.src;
+    let currentSong = event.target.src;
     let formData = new FormData;
     formData.append('link', currentSong); 
 

@@ -19,7 +19,7 @@ include_once './partials/connection.php';
         <div class="container-fluid" id="container">
 
             <span id="spanAppearBtn" class="d-block d-sm-block d-md-none">
-                <button type="button" id="appearBtn" class="btn btn-dark">Appear!</button>
+                <button type="button" id="appearBtn"><i id="arrow" class="fas fa-angle-double-right"></i></button>
             </span>
             
             <div class="row pt-1" id="row1">
