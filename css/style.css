@@ -31,7 +31,7 @@ h3 {
 }
 
 /* links */
-a {
+a, .sideButton {
     padding: 1em 1em;
 	color: white;
 	cursor: pointer;
@@ -42,18 +42,18 @@ a {
     transition: all 200ms ease;
 }
 
-a, a:hover, a:active {
+a, a:hover, a:active, .sideButton, .sideButton:hover, .sideButton:active {
 	text-decoration: none;
     text-shadow: rgba(0,0,0,.01) 0 0 1px;
     transition: all 200ms ease;
 }
 
-a:active {
+a:active, .sideButton:active {
 	background: linear-gradient(#00C9A7, #845EC2) padding-box, radial-gradient(farthest-corner, #00C9A7, #845EC2) border-box;
     transition: all 200ms ease;
 }
 
-a:hover {
+a:hover, .sideButton:hover {
     color: #845EC2;
     transition: all 200ms ease;
 }
@@ -216,7 +216,7 @@ button:hover {
     color: #fff; 
 }
 
-.nickname {
+.name {
     color: #845EC2;
 }
 
@@ -263,4 +263,13 @@ button:hover {
     padding-bottom: 0.3vw;
     cursor: pointer;
     border-radius: 0%;
+}
+
+.myComment {
+    background-color:rgba(0, 0, 0, 0.7);
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-image-source: linear-gradient(45deg, #5a80b9, #845EC2);
+    border-image-slice: 1;
+    padding: 0.3vw 0.5vw 0.3vw 0.5vw;
 }
