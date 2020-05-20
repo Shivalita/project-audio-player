@@ -30,10 +30,10 @@ function play(idPlayer, control) {
     
          if (player.paused) {
             player.play();
-            control.textContent = 'Pause';
+            control.innerHTML = "<i class='fas fa-pause'></i>";
         } else {
             player.pause();	
-            control.textContent = 'Play';
+            control.innerHTML = "<i class='fas fa-play'></i>";
         }     
 }
 

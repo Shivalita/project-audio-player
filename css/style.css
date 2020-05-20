@@ -18,6 +18,10 @@ h3 {
     color: #845EC2;
 }
 
+li {
+    list-style: none;
+}
+
 /* background */
 .background_image {
 	position: absolute;

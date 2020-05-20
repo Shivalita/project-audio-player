@@ -9,15 +9,15 @@
     
     <div class="d-flex justify-content-around">
         <div>
-            <button class="control" onclick="mute('audioPlayer')">Mute</button>
-            <button class="control" onclick="loop('audioPlayer')">Loop</button>
-            <button class="control" onclick="letsRandom()">Random</button>
+            <button class="control" onclick="mute('audioPlayer')"><i class="fas fa-volume-mute"></i></button>
+            <button class="control" onclick="loop('audioPlayer')"><i class="fas fa-undo"></i></button>
+            <button class="control" onclick="letsRandom()"><i class="fas fa-random"></i></button>
         </div>
         
         <div>
-            <button class="control" onclick="prev('audioPlayer')">Prev</button>
-            <button class="control" onclick="play('audioPlayer', this)">Play</button>
-            <button class="control" onclick="next('audioPlayer')">Next</button>
+            <button class="control" onclick="prev('audioPlayer')"><i class="fas fa-step-backward"></i></button>
+            <button class="control" onclick="play('audioPlayer', this)"><i class="fas fa-play"></i></button>
+            <button class="control" onclick="next('audioPlayer')"><i class="fas fa-step-forward"></i></button>
         </div>
         
         <div>
