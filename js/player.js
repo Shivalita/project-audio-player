@@ -327,6 +327,55 @@ function clickProgress(idPlayer, control, event) {
 }
 
 
+/* ----- Playing & refresh systems start ----- */
+let tabs = document.querySelectorAll('.tab');
+let songTitleDiv = document.querySelector('#playerTitleArtist');
+let currentTab;
+
+/* Gives the new src to the player and plays it */
+function setSong(songLink) {
+    player.src = songLink;
+    player.play();
+}
+
+/* Display song's title and artist */
+function refreshSongDisplay(newSongData) {
+    songTitleDiv.innerHTML = newSongData;
+}
+
+/* Get the content to be displayed from partials */
+async function getPartial(url) {
+    let response =  await fetch(url);
+    let result = await response.text();
+    return result;
+}
+
+/* Inject the content in the HTML */
+function displayPartial(partial) {
+    document.querySelector('#content').innerHTML = partial;
+}
+
+/* Get song when clicked in album's list and play it */
+function clickSong() {
+    let albumSongs = document.querySelectorAll('.albumSong');
+    albumSongs.forEach(albumSong => {
+        albumSong.addEventListener('click', async function() {
+            console.log('clicked')
+            let songName = albumSong.innerText;
+            let songFormData = new FormData;
+            songFormData.append('songName', songName); 
+
+            let getSongLink = await fetch('./apps/get-song.php', {
+                method: 'POST',
+                body: songFormData
+        })
+            let songLink = await getSongLink.text();
+            setSong(songLink);
+        })    
+    });
+}
+
+
 /* Check if player is playing a song */
 player.addEventListener('playing', async function(event) {
     /* Store song's source */
@@ -334,12 +383,68 @@ player.addEventListener('playing', async function(event) {
     let formData = new FormData;
     formData.append('link', currentSong); 
 
-    /* Send song's source to php for processing (get artist and title) and display it */
-    let songTitleDiv = document.querySelector('#playerTitleArtist');
+    /* Send song's source to php to get artist and title */
+    // let songTitleDiv = document.querySelector('#playerTitleArtist');
     let response = await fetch('./apps/get-song-data.php', {
         method: 'POST',
         body: formData
     })
+    /* Display song's title and artist in player */
     let songDisplay = await response.text();
     songTitleDiv.innerHTML = songDisplay;
+
+    /* ----- Tab system start ----- */
+    /* Display "Now playing" by default when a song is played */
+    if (!currentTab) {
+        currentTab = 'Now playing';
+    }
+
+    /* Listen for click on tabs, and store the targeted tab in currentTab */
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(event) {
+            if (event.target.innerHTML === 'Now playing') {
+                currentTab = 'Now playing';
+            } else if (event.target.innerHTML == 'Comments') {
+                currentTab = 'Comments';
+            } else if (event.target.innerHTML === 'Popular playlists') {
+                currentTab = 'Popular playlists';
+            } else if (event.target.innerHTML === 'New releases') {
+                currentTab = 'New releases';
+            } 
+        })     
+    });
+
+    /* Refresh tab's display */
+    async function refreshTabDisplay() {
+        if (currentTab === 'Now playing') {
+            let partial = await getPartial('./partials/now-playing.php');
+            displayPartial(partial);
+            } else if (currentTab === 'Comments') {
+            let partial = await getPartial('./partials/comments.php');
+            displayPartial(partial);
+            } else if (currentTab === 'Popular playlists') {
+            let partial = await getPartial('./partials/coming-soon.php');
+            displayPartial(partial);
+            } else if (currentTab === 'New releases') {
+            let partial = await getPartial('./partials/coming-soon.php');
+            displayPartial(partial);
+        }
+        clickSong();
+        }
+    
+    refreshTabDisplay();
+    /* ----- Tab system end ----- */
 })
+/* ----- Playing & refresh systems end ----- */
+
+
+/* Listen for click on sidebar buttons, and call the appropriate php page for display */
+let sideButtons = document.querySelectorAll('.sideButton');
+sideButtons.forEach(sideButton => {
+    sideButton.addEventListener('click', async function(event) {
+        if (event.target.innerHTML === 'My comments') {
+            let partial = await getPartial('./partials/my-comments.php');
+            displayPartial(partial);
+        }
+    })
+});
