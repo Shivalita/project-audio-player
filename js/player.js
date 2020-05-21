@@ -384,7 +384,6 @@ player.addEventListener('playing', async function(event) {
     formData.append('link', currentSong); 
 
     /* Send song's source to php to get artist and title */
-    // let songTitleDiv = document.querySelector('#playerTitleArtist');
     let response = await fetch('./apps/get-song-data.php', {
         method: 'POST',
         body: formData
