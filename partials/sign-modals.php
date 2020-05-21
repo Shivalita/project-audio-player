@@ -55,12 +55,12 @@
                     <div class="md-form mb-5">
                         <i class="fas fa-user prefix"></i>
                         <label data-error="wrong" data-success="right" for="nickname">Nickname</label>
-                        <input type="text" id="signUpNickname" name="nickname" class="form-control validate text-white" required>
+                        <input type="text" id="signInNickname" name="nickname" class="form-control validate text-white" required>
                     </div>
                     <div class="md-form mb-5">
                         <i class="fas fa-lock prefix"></i>
                         <label data-error="wrong" data-success="right" for="password">Password</label>
-                        <input type="password" id="signUpPassword" name="password" class="form-control validate text-white" required>
+                        <input type="password" id="signInPassword" name="password" class="form-control validate text-white" required>
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">

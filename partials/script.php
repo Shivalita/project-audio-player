@@ -7,6 +7,3 @@
 <script src="./js/player.js"></script>
 <script src="./js/search.js"></script>
 <script src="./js/playlist.js"></script>
-<!-- <script src="./js/add-to-db.js"></script> -->
-
-

@@ -23,7 +23,7 @@ if ($myCommentsCount === 0) {
 
             <div class="row text-center text-white mb-5">
                 <div class="col-12">
-                    <h2><b class="text-white">My comments</b></h2>
+                    <h2><b class="text-white">Your comments</b></h2>
                     <h5 class="mt-3 mb-1">'.$myCommentsCount.' comments</h5>
                 </div>
                 
@@ -41,7 +41,7 @@ if ($myCommentsCount === 0) {
             $myCommentedArtistQuery->execute([$myCommentedSong['artist_id']]);
             $myCommentedArtist = $myCommentedArtistQuery->fetch(PDO::FETCH_ASSOC);
 
-            echo ('<div class="col-10 text-white mb-4 myComment">');
+            echo ('<div class="col-10 text-white mb-4 displayList">');
             echo ($myComment['created_at'].'</br>');
             echo ('<b class="name">'.$myCommentedArtist['name'].' - '.$myCommentedSong['title'].'</b> : '.$myComment['comment'].'<br>');
             echo ('</div>');
