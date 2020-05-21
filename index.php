@@ -66,7 +66,5 @@ include_once './partials/connection.php';
         include_once './partials/script.php';
         ?>
 
-        <script src="./js/get-audio.js"></script>
-
     </body>
 </html>

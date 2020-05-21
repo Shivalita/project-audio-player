@@ -54,40 +54,7 @@ async function getSearchResults(url, init) {
         </div>
     </div>
     `;
-    // result.map(function(item) {
-    //     artistsTable.push(`<li>${item.artist.name}</li>`);
-    //     const ulArtists = document.querySelector('#ulArtists');
-    //     ulArtists.innerHTML = artistsTable.map(function(artist) {
-    //         return artist;
-    //     }).join("");
-    //     albumsTable.push(`<li>${item.album.title}</li>`);
-    //     const ulAlbums = document.querySelector('#ulAlbums');
-    //     ulAlbums.innerHTML = albumsTable.map(function(album) {
-    //         return album;
-    //     }).join("");
-    //     songsTable.push(`<li>${item.title_short}</li>`);
-    //     const ulSongs = document.querySelector('#ulSongs');
-    //     ulSongs.innerHTML = songsTable.map(function(song) {
-    //         return song;
-    //     }).join("");
-    // })
 
-        // const ulArtists = document.querySelector('#ulArtists');
-    // ulArtists.innerHTML = artistsTable.map(function(artist) {
-    //     return artist;
-    // }).join("");
-
-    // const ulAlbums = document.querySelector('#ulAlbums');
-    // ulAlbums.innerHTML = albumsTable.map(function(album) {
-    //     return album;
-    // }).join("");
-
-    // const ulSongs = document.querySelector('#ulSongs');
-    // ulSongs.innerHTML = songsTable.map(function(song) {
-    //     return song;
-    // }).join("");
-
-    
     /* Store search results in arrays */
     result.map(function(item) {
         artistsTable.push(`<li>${item.artist.name}</li>`);

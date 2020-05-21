@@ -326,79 +326,189 @@ function clickProgress(idPlayer, control, event) {
     player.currentTime = (duration * percent) / 100;
 }
 
+/* ----------------------------------- Dynamic processes ----------------------------------- */
+let songId = 121017060;
+let songLink;
 
-/* ----- Playing & refresh systems start ----- */
+const myHeaders = {
+    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+    "x-rapidapi-key": "3c7ba1a799msh39d4063292763d0p17e532jsn54f102579552"
+};
+
+const myInit = { method: 'GET',
+                headers: myHeaders};
+
+
+/* ----- API song request start ----- */
+async function songQuery(songId) {
+    let songResult = await getSongResults(`https://deezerdevs-deezer.p.rapidapi.com/track/${songId}`, myInit);
+    return songResult;
+}
+
+async function getSongResults(url, init) {
+    const response = await fetch(url, init);
+    const results = await response.json();
+    return results;  
+}
+
+
+/* ----- API album request start ----- */
+async function albumQuery(albumId) {
+    let albumResult = await getAlbumResults(`https://deezerdevs-deezer.p.rapidapi.com/album/${albumId}`, myInit);
+    return albumResult;
+}
+
+async function getAlbumResults(url, init) {
+    const response = await fetch(url, init);
+    const results = await response.json();
+    return results;  
+}
+
+
+/* --------------------------- Playing & refresh systems start --------------------------- */
+
+/* --------------- Functions statements start --------------- */
 let tabs = document.querySelectorAll('.tab');
 let songTitleDiv = document.querySelector('#playerTitleArtist');
 let currentTab;
 
-/* Gives the new src to the player and plays it */
+/* Declare songs data variables */
+let songTitleLink;
+let songTitle;
+let songArtistName;
+let songArtistId;
+let songArtistPic;
+let songDate;
+let songAlbumTitle;
+let songAlbumId;
+let songAlbumDate;
+let songAlbumCover;
+
+/* Declare albums data variables */
+let albumId;
+let albumTitle;
+let albumArtistName;
+let albumArtistId;
+let albumArtistPic;
+let albumDate;
+let albumCover;
+let albumTracks;
+
+let albumTracksIds = [];
+let albumTracksLinks = [];
+
+/* Make API song request and store result data */
+async function makeSongRequest(songId) {
+    let songResult = await songQuery(songId);
+
+    songId = songResult.id;
+    songTitleLink = songResult.preview;
+    songTitle = songResult.title_short;
+    songArtistName = songResult.artist.name;
+    songArtistId = songResult.artist.id;
+    songArtistPic = songResult.artist.picture;
+    songDate = songResult.release_date;
+    songAlbumTitle = songResult.album.title;
+    songAlbumId = songResult.album.id;
+    songAlbumDate = songResult.album.release_date;
+    songAlbumCover = songResult.album.cover;
+
+    return songAlbumId;
+}
+
+/* Make API album request and store result data */
+async function makeAlbumRequest(songAlbumId) {
+    let albumResult = await albumQuery(songAlbumId);
+
+    albumId = albumResult.id;
+    albumTitle = albumResult.title;
+    albumArtistName = albumResult.artist.name;
+    albumArtistId = albumResult.artist.id;
+    albumArtistPic = albumResult.artist.picture;
+    albumDate = albumResult.release_date;
+    albumCover = albumResult.cover;
+    albumTracks = albumResult.tracks.data;
+
+    albumTracksIds = [];
+    albumTracksLinks = [];
+
+    for (let i = 0; i < albumTracks.length; i++) {
+        albumTracksIds.push(albumTracks[i].id)
+    }
+
+    for (let i = 0; i < albumTracks.length; i++) {
+        albumTracksLinks.push(albumTracks[i].preview)
+    }
+}
+
+/* Display album's tracklist splitted in two columns */
+function displayAlbumTracklist(albumTracksIds, albumTracksLinks) {
+    let albumSongLeft = document.querySelector('#albumSongLeft');
+    let albumSongRight = document.querySelector('#albumSongRight');
+    let midAlbumLength = Math.round(albumTracksIds.length/2);
+
+    for (let i = 0; i < midAlbumLength; i++) {
+        albumSongLeft.innerHTML += '<p data-id="' + albumTracksIds[i] + '" data-link="' + albumTracksLinks[i] + '" class="text-white displayList albumSong">' + albumTracks[i].title + '</p>';
+    }
+    for (let i = midAlbumLength; i < albumTracksIds.length; i++) {
+        albumSongRight.innerHTML += '<p data-id="' + albumTracksIds[i] + '" data-link="' + albumTracksLinks[i] + '" class="text-white displayList albumSong">' + albumTracks[i].title + '</p>';
+    }
+}
+
+/* Give a new source to the player and play it */
 function setSong(songLink) {
     player.src = songLink;
     player.play();
 }
 
-/* Display song's title and artist */
-function refreshSongDisplay(newSongData) {
-    songTitleDiv.innerHTML = newSongData;
+/* Display song's title, artist and album's cover */
+function refreshSongDisplay(songTitle, songArtistName, songAlbumCover) {
+    let albumImgDiv = document.querySelector('#albumImg');
+    albumImgDiv.src = songAlbumCover;
+    songTitleDiv.innerHTML = '<h5 class="text-white mb-4">' + songTitle + ' - ' + songArtistName + '</h5>';
 }
 
-/* Get the content to be displayed from partials */
+/* Get the content to be displayed from PHP partials */
 async function getPartial(url) {
     let response =  await fetch(url);
     let result = await response.text();
     return result;
 }
 
-/* Inject the content in the HTML */
+/* Inject partial content in HTML */
 function displayPartial(partial) {
     document.querySelector('#content').innerHTML = partial;
 }
 
-/* Get song when clicked in album's list and play it */
-function clickSong() {
+/* Get song when clicked in tracklist, play it and refresh display */
+function clickSong(songId, songLink) {
     let albumSongs = document.querySelectorAll('.albumSong');
     albumSongs.forEach(albumSong => {
         albumSong.addEventListener('click', async function() {
-            console.log('clicked')
-            let songName = albumSong.innerText;
-            let songFormData = new FormData;
-            songFormData.append('songName', songName); 
-
-            let getSongLink = await fetch('./apps/get-song.php', {
-                method: 'POST',
-                body: songFormData
-        })
-            let songLink = await getSongLink.text();
+            songId = albumSong.dataset.id;
+            songLink = albumSong.dataset.link;
             setSong(songLink);
-        })    
+            let albumId = await makeSongRequest(songId);
+            await makeAlbumRequest(albumId); 
+        })
     });
 }
+/* --------------- Functions statements end --------------- */
 
 
-/* Check if player is playing a song */
-player.addEventListener('playing', async function(event) {
-    /* Store song's source */
-    let currentSong = event.target.src;
-    let formData = new FormData;
-    formData.append('link', currentSong); 
+/* --------------- Playing path --------------- */
+player.addEventListener('playing', async function() {
 
-    /* Send song's source to php to get artist and title */
-    let response = await fetch('./apps/get-song-data.php', {
-        method: 'POST',
-        body: formData
-    })
-    /* Display song's title and artist in player */
-    let songDisplay = await response.text();
-    songTitleDiv.innerHTML = songDisplay;
+    /* Make API song request */
+    let albumId = await makeSongRequest(songId);
+    await makeAlbumRequest(albumId);
 
-    /* ----- Tab system start ----- */
-    /* Display "Now playing" by default when a song is played */
+    /* Display "Now playing" by default */
     if (!currentTab) {
         currentTab = 'Now playing';
     }
 
-    /* Listen for click on tabs, and store the targeted tab in currentTab */
+    /* Listen for click on tabs, store the targeted tab and refresh display */
     tabs.forEach(tab => {
         tab.addEventListener('click', function(event) {
             if (event.target.innerHTML === 'Now playing') {
@@ -410,31 +520,39 @@ player.addEventListener('playing', async function(event) {
             } else if (event.target.innerHTML === 'New releases') {
                 currentTab = 'New releases';
             } 
-        })     
+            refreshTabDisplay(); 
+        })
     });
 
     /* Refresh tab's display */
     async function refreshTabDisplay() {
         if (currentTab === 'Now playing') {
+
+            /* Display song's title/artist/cover and album's tracklist */
             let partial = await getPartial('./partials/now-playing.php');
             displayPartial(partial);
+            refreshSongDisplay(songTitle, songArtistName, songAlbumCover);
+            displayAlbumTracklist(albumTracksIds, albumTracksLinks);
+
             } else if (currentTab === 'Comments') {
             let partial = await getPartial('./partials/comments.php');
             displayPartial(partial);
+
             } else if (currentTab === 'Popular playlists') {
             let partial = await getPartial('./partials/coming-soon.php');
             displayPartial(partial);
+
             } else if (currentTab === 'New releases') {
             let partial = await getPartial('./partials/coming-soon.php');
             displayPartial(partial);
         }
-        clickSong();
-        }
-    
+        /* Allows to play songs from tracklist */
+        clickSong(songId, songLink);
+    }
+    /* Refresh display */
     refreshTabDisplay();
-    /* ----- Tab system end ----- */
 })
-/* ----- Playing & refresh systems end ----- */
+/* --------------------------- Playing & refresh systems end --------------------------- */
 
 
 /* Listen for click on sidebar buttons, and call the appropriate php page for display */
