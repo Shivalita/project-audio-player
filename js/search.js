@@ -1,101 +1,102 @@
+//select the search form and apply event listener on submit
 let searchForm = document.querySelector('#searchForm');
 searchForm.addEventListener('submit', getSearch);
 
-let myArtists = [];
-let myAlbums = [];
-let mySongs = [];
-let myPlaylists = [];
+//play when you click on song
+function playNow(idPlayer, mySrc, idSong) {
+    let player = document.querySelector('#' + idPlayer);
+    player.src = mySrc;
+    player.play();
+    songId = idSong;        
+}
 
+//request Deezer APi with the search
+async function getSearch(event) {
+    console.log("getSearch se lance");
+    event.preventDefault();
 
-async function displayResults() {
+    let searchRequest = search.value;
+
+    await getSearchResults(`https://deezerdevs-deezer.p.rapidapi.com/search?q=${searchRequest}`, myInit);
+    console.log("getSearchResults est terminée");
+
+    search.value = '';
+}
+
+const myHeaders = {
+    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+    "x-rapidapi-key": "3c7ba1a799msh39d4063292763d0p17e532jsn54f102579552"
+};
+
+const myInit = { method: 'GET',
+                headers: myHeaders};
+
+async function getSearchResults(url, init) {
+    const response = await fetch(url, init);
+    console.log("response", response);
+    const results = await response.json();
+    console.log("results", results);
+    const result = results.data;
+    console.log("result", result);
+    let artistsTable = [];
+    let albumsTable = [];
+    let songsTable = [];
     const contentDiv = document.querySelector('#content');
-    let listArtists = myArtists.map(function(artist) {
-        return `
-        <li class="text-white">${artist}</li>
-        `
-        }).join("");
-    let listAlbums = myAlbums.map(function(album) {
-        return `
-        <li class="text-white">${album}</li>
-        `
-        }).join("");
-    let listSongs = mySongs.map(function(song) {
-        return `
-        <li class="text-white">${song}</li>
-        `
-        }).join("");
-    let listPlaylists = myPlaylists.map(function(playlists) {
-        return `
-        <li class="text-white">${playlists}</li>
-        `
-        }).join("");
-    contentDiv.innerHTML = `
+        contentDiv.innerHTML = `
     <div class="container-fluid">
-        <div class="row" style="min-height: 50%;">
+        <div class="row align-items-start h-50">
             <div class="col-12 col-md-6 text-center">
-                <h5 class="pt-2 text-left text-white">Artists</h5>
-                <ul class="pb-2 my-auto">${listArtists}</ul>
+                <h5 class="pt-5 text-left text-white">Artists</h5>
+                <ul id="ulArtists" class="pb-2 list-inline"></ul>
             </div>
 
             <div class="col-12 col-md-6 text-center">
-                <h5 class="pt-2  text-left text-white">Albums</h5>
-                <ul class="pb-2 my-auto">${listAlbums}</ul>
+                <h5 class="pt-5  text-left text-white">Albums</h5>
+                <ul id="ulAlbums" class="pb-2 list-inline"></ul>
             </div>
         </div>
 
-        <div class="row" style="min-height: 50%;">
+        <div class="row align-items-start h-50">
             <div class="col-12 col-md-6 text-center">
-                <h5 class="pt-2  text-left text-white">Songs</h5>
-                <ul class="pb-2 my-auto">${listSongs}</ul>
-            </div>
-
-            <div class="col-12 col-md-6 text-center">
-                <h5 class="pt-2 text-left text-white">Playlists</h5>
-                <ul class="pb-2 my-auto">${listPlaylists}</ul>
+                <h5 class="pt-5  text-left text-white">Songs</h5>
+                <ul id="ulSongs" class="pb-2 list-inline"></ul>
             </div>
         </div>
     </div>
     `;
-}
-
-async function getResults(url, method, body) {
-    let response = await fetch(url, method, body);
-    console.log("response: ", response);
-    let results = await response.json();
-    console.log("results name name: ", results.name[0].name);
-    let myContent = [results.name, results.album_title, results.title, results.playlist_title];
-    console.log("myContent: ", myContent);
-    myContent.map(function(element) {
-        console.log("element: ", element);
-        element.map(function(item) {
-            console.log("item: ", item);
-            if(item.name !== undefined) {
-                myArtists.push(item.name);
-            }
-            if(item.album_title !== undefined) {
-                myAlbums.push(item.album_title);
-            }
-            if(item.title !== undefined) {
-                mySongs.push(item.title);
-            }
-            if(item.playlist_title !== undefined) {
-                myPlaylists.push(item.playlist_title);
-            }
-        })
+    
+    /* Store search results in arrays */
+    result.map(function(item) {
+        artistsTable.push(`<li class="list-inline-item">- ${item.artist.name}</li>`);
+        albumsTable.push(`<li class="list-inline-item">- ${item.album.title}</li>`);  
+        songsTable.push(`<li class="list-inline-item" onclick='playNow("audioPlayer", "${item.preview}", ${item.id})'>- ${item.title_short}</li>`);
+        console.log(item.preview);
     })
-}
 
-async function getSearch(event) {
-    event.preventDefault();
+    /* Remove duplicates in arrays */
+    let removeArtistsDuplicates = new Set(artistsTable);
+    artistsTable = [...removeArtistsDuplicates];
 
-    const data = new FormData;
-    data.append('search', search.value);
+    let removeAlbumsDuplicates = new Set(albumsTable);
+    albumsTable = [...removeAlbumsDuplicates];
 
-    await getResults('./apps/getSearchResults.php', {
-        method: 'POST',
-        body: data});
-    await displayResults();
-    console.log("mySongs: ", mySongs);
+    let removeSongsDuplicates = new Set(songsTable);
+    songsTable = [...removeSongsDuplicates];
 
-    search.value = '';
+    /* Display results */
+    const ulArtists = document.querySelector('#ulArtists');
+    const ulAlbums = document.querySelector('#ulAlbums');
+    const ulSongs = document.querySelector('#ulSongs');
+
+    artistsTable.forEach(artistName => {
+        ulArtists.innerHTML += artistName;
+    });
+
+    albumsTable.forEach(albumTitle => {
+        ulAlbums.innerHTML += albumTitle;
+    });
+
+    songsTable.forEach(songTitle => {
+        ulSongs.innerHTML += songTitle;
+    });
 }

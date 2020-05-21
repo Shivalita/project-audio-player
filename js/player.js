@@ -15,8 +15,6 @@ player.addEventListener('ended', function() {
     searchPrev();
     injectNextPrev();
 }, false);
-// player.addEventListener('ended', searchNext(), false);
-// player.addEventListener('ended', searchPrev(), false);
 
 //stop function
 function stop() {

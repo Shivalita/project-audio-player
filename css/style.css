@@ -278,3 +278,13 @@ button:hover {
     border-image-slice: 1;
     padding: 0.3vw 0.5vw 0.3vw 0.5vw;
 }
+
+/* search results */
+.list-inline-item{
+    color: white;
+}
+
+.list-inline-item:hover {
+    cursor: pointer;
+    color: #845EC2;
+}

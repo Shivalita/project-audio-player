@@ -6,5 +6,4 @@
 <script src="./js/sign.js"></script>
 <script src="./js/player.js"></script>
 <script src="./js/search.js"></script>
-
-
+<script src="./js/playlist.js"></script>
