@@ -59,12 +59,12 @@ include_once './partials/connection.php';
             </div>
 
         </div>
-  
-    
+   
 
         <?php
         include_once './partials/script.php';
         ?>
+       
 
     </body>
 </html>
