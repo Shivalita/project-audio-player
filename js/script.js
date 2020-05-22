@@ -32,6 +32,9 @@ sideButtons.forEach(sideButton => {
         if (event.target.innerHTML === 'My comments') {
             let partial = await getPartial('./apps/my-comments-display.php');
             displayPartial(partial);
+        } else if (event.target.innerHTML === 'My playlists') {
+            let partial = await getPartial('./partials/my-playlists.php');
+            displayPartial(partial);
         }
     })
 });

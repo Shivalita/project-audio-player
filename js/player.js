@@ -582,3 +582,12 @@ player.addEventListener('playing', async function() {
 refreshDisplay();
 
 /* --------------------------- Playing & refresh systems end --------------------------- */
+
+
+//play playlist when you click on one
+function playPlaylist(idPlayer, mySrc) {
+    let player = document.querySelector('#' + idPlayer);
+    player.src = mySrc;
+    player.play();
+    songId = idSong;        
+}
