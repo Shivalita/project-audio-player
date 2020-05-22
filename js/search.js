@@ -23,14 +23,6 @@ async function getSearch(event) {
     search.value = '';
 }
 
-const myHeaders = {
-    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-    "x-rapidapi-key": "3c7ba1a799msh39d4063292763d0p17e532jsn54f102579552"
-};
-
-const myInit = { method: 'GET',
-                headers: myHeaders};
-
 async function getSearchResults(url, init) {
     const response = await fetch(url, init);
     console.log("response", response);

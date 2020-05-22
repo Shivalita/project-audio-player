@@ -24,3 +24,14 @@ html.addEventListener('click', function(event) {
        }
    }
 })
+
+/* Listen for click on sidebar buttons, and call the appropriate php page for display */
+let sideButtons = document.querySelectorAll('.sideButton');
+sideButtons.forEach(sideButton => {
+    sideButton.addEventListener('click', async function(event) {
+        if (event.target.innerHTML === 'My comments') {
+            let partial = await getPartial('./apps/my-comments-display.php');
+            displayPartial(partial);
+        }
+    })
+});
