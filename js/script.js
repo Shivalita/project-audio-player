@@ -30,7 +30,7 @@ let sideButtons = document.querySelectorAll('.sideButton');
 sideButtons.forEach(sideButton => {
     sideButton.addEventListener('click', async function(event) {
         if (event.target.innerHTML === 'My comments') {
-            let partial = await getPartial('./partials/my-comments.php');
+            let partial = await getPartial('./apps/my-comments-display.php');
             displayPartial(partial);
         } else if (event.target.innerHTML === 'My playlists') {
             let partial = await getPartial('./partials/my-playlists.php');

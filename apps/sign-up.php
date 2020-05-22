@@ -40,7 +40,7 @@ if (!empty($_FILES['avatar']) AND $_FILES['avatar']['error'] === 0) {
     }
 } else {
     /* Assign a default avatar if not added */
-    $avatar = '../uploads/Toto.jpg';
+    $avatar = '../uploads/Mateo.jpg';
 }
 
 
