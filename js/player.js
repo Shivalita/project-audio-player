@@ -452,15 +452,18 @@ function displayAlbumTracklist(albumTracksIds, albumTracksLinks) {
 }
 
 /* Get song when clicked in tracklist, play it and refresh display */
-function clickSong(songId, songLink) {
+function clickSong() {
     let albumSongs = document.querySelectorAll('.albumSong');
     albumSongs.forEach(albumSong => {
         albumSong.addEventListener('click', async function() {
             songId = albumSong.dataset.id;
             songLink = albumSong.dataset.link;
-            setSong(songLink);
+            console.log(songId)
             let albumId = await makeSongRequest(songId);
             await makeAlbumRequest(albumId); 
+            console.log(songId)
+            setSong(songLink);
+            refreshDisplay();
         })
     });
 }
@@ -522,7 +525,6 @@ async function listenTab() {
 }
 
 async function refreshTabDisplay() {
-    console.log('CURRENT TAB 2 : ', currentTab)
     if (currentTab === 'Now playing') {
         if (songId) {
             /* Display song's title/artist/cover and album's tracklist */
@@ -555,7 +557,7 @@ async function refreshTabDisplay() {
     }
 
     /* Allows to play songs from tracklist */
-    clickSong(songId, songLink);
+    clickSong();
 }
 
 async function refreshDisplay() {
@@ -572,13 +574,12 @@ player.addEventListener('playing', async function() {
     /* Make API song request */
     let albumId = await makeSongRequest(songId);
     await makeAlbumRequest(albumId);
-    console.log(songTitle)
 
     /* Refresh all display */
     refreshDisplay();
 })
 
-/* Refresh all display */
+/* Refresh all display once on page loading*/
 refreshDisplay();
 
 /* --------------------------- Playing & refresh systems end --------------------------- */

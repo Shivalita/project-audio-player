@@ -8,13 +8,11 @@ $comments = $commentsQuery->fetchAll(PDO::FETCH_ASSOC);
 $commentsCount = 0;
 
 foreach ($comments as $comment) {
-    if ($comment['song_id'] === $_SESSION['songId']) {
         echo ('<div class="col-12 text-white comment mb-5">');
             echo ($comment['created_at'].' - <b class="text-white">'.$comment['nickname'].'</b> : '.$comment['comment'].'<br>');
         echo ('</div>
         ');
-        $commentsCount++;
-    } 
+        $commentsCount++; 
 } 
 
 if ($commentsCount === 0) {
