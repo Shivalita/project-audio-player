@@ -552,14 +552,10 @@ player.addEventListener('playing', async function() {
 })
 /* --------------------------- Playing & refresh systems end --------------------------- */
 
-
-/* Listen for click on sidebar buttons, and call the appropriate php page for display */
-let sideButtons = document.querySelectorAll('.sideButton');
-sideButtons.forEach(sideButton => {
-    sideButton.addEventListener('click', async function(event) {
-        if (event.target.innerHTML === 'My comments') {
-            let partial = await getPartial('./partials/my-comments.php');
-            displayPartial(partial);
-        }
-    })
-});
+//play playlist when you click on one
+function playPlaylist(idPlayer, mySrc) {
+    let player = document.querySelector('#' + idPlayer);
+    player.src = mySrc;
+    player.play();
+    songId = idSong;        
+}
