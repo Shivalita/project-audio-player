@@ -14,20 +14,20 @@
   } else {
 ?>
  
-  <div class="row">
-    <div class="col-12 offset-md-2 text-center mt-4">
-        <img id="userAvatar" class="img-fluid control avatar" src="<?=$_SESSION['avatar']?>" alt="">
-      </div>
-
-    <div class="col-12 offset-md-1 text-center mt-4">
-      <h5 id="userName" class="nickname name mb-5"><?=$_SESSION['nickname']?></h5>
+  <div class="row justify-content-around">
+    <div class="col-12 text-center mt-3">
+      <img id="userAvatar" class="img-fluid control avatar" src="<?=$_SESSION['avatar']?>" alt="">
     </div>
 
-    <div class="col-12 offset-md-1 text-center m-1">
+    <div class="col-12 text-center mt-4">
+      <h5 id="userName" class="nickname mb-5"><b class="name"><?=$_SESSION['nickname']?></b></h5>
+    </div>
+
+    <div class="col-12 text-center m-1">
       <button id="myComments" class="sideButton">My comments</button>
     </div>
 
-    <div class="col-12 offset-md-1 text-center m-1">
+    <div class="col-12 text-center mt-3 mb-3">
       <button id="myPlaylists" class="sideButton">My playlists</button>
     </div>
   </div>

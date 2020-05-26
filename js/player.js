@@ -439,9 +439,12 @@ async function makeAlbumRequest(songAlbumId) {
 
 /* Display album's tracklist splitted in two columns */
 function displayAlbumTracklist(albumTracksIds, albumTracksLinks) {
+    let albumTitleDiv = document.querySelector('#albumTitle');
     let albumSongLeft = document.querySelector('#albumSongLeft');
     let albumSongRight = document.querySelector('#albumSongRight');
     let midAlbumLength = Math.round(albumTracksIds.length/2);
+
+    albumTitleDiv.innerHTML = '<b class="text-white">' + albumTitle + '</b>';
 
     for (let i = 0; i < midAlbumLength; i++) {
         albumSongLeft.innerHTML += '<p data-id="' + albumTracksIds[i] + '" data-link="' + albumTracksLinks[i] + '" class="text-white displayList albumSong">' + albumTracks[i].title + '</p>';
@@ -503,7 +506,7 @@ async function commentProcess() {
         formData.append('comment', commentText);
         formData.append('artist', songArtistName);
         formData.append('title', songTitle);
-        await fetch('./apps/comment-process.php', {
+        let toto = await fetch('./apps/comment-process.php', {
             method: 'POST',
             body: formData
         })
@@ -536,19 +539,19 @@ async function listenTab() {
         tab.addEventListener('click', function(event) {
             if (event.target.innerHTML === 'Now playing') {
                 currentTab = 'Now playing';
-                refreshTabDisplay();
+                refreshDisplay();
                 return currentTab;
             } else if (event.target.innerHTML == 'Comments') {
                 currentTab = 'Comments';
-                refreshTabDisplay();
+                refreshDisplay();
                 return currentTab;
             } else if (event.target.innerHTML === 'Popular playlists') {
                 currentTab = 'Popular playlists';
-                refreshTabDisplay();
+                refreshDisplay();
                 return currentTab;
             } else if (event.target.innerHTML === 'New releases') {
                 currentTab = 'New releases';
-                refreshTabDisplay();
+                refreshDisplay();
                 return currentTab;
             } 
         })
@@ -557,7 +560,7 @@ async function listenTab() {
     return currentTab;
 }
 
-async function refreshTabDisplay() {
+async function refreshDisplay() {
     if (currentTab === 'Now playing') {
         if (songId) {
             /* Display song's title/artist/cover and album's tracklist */
@@ -596,9 +599,9 @@ async function refreshTabDisplay() {
     clickSong();
 }
 
-async function refreshDisplay() {
+async function refreshTabDisplay() {
     await listenTab();
-    await refreshTabDisplay(); 
+    await refreshDisplay(); 
 }
 
 /* --------------- Statements end --------------- */
@@ -606,17 +609,18 @@ async function refreshDisplay() {
 
 /* --------------- Playing path --------------- */
 player.addEventListener('playing', async function() {
+    currentTab = 'Now playing';
 
     /* Make API song request */
     let albumId = await makeSongRequest(songId);
     await makeAlbumRequest(albumId);
 
-    /* Refresh all display */
+    /* Refresh display */
     refreshDisplay();
 })
 
-/* Refresh all display once on page loading*/
-refreshDisplay();
+/* Listen for tab's clicks and refresh display once on page loading*/
+refreshTabDisplay();
 
 /* --------------------------- Playing & refresh systems end --------------------------- */
 

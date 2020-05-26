@@ -6,5 +6,3 @@
     </div>
 </div>
 
-<a href="" data-value="" onclick="play(value);"></a>
-

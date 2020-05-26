@@ -2,9 +2,9 @@
     <form id="commentForm" action="" method="POST">
 
         <div class="row justify-content-around mt-4">
-            <div class="col-4">
+            <div class="col-6">
                 <label data-error="wrong" data-success="right" for="comment" class="text-white">Post a comment</label>
-                <textarea id="commentInput" class="form-control text-white squareBtn" name="comment" rows="3" minlength="2" maxlength="300" required></textarea>
+                <textarea id="commentInput" class="form-control text-white squareBtn" name="comment" rows="4" minlength="2" maxlength="300" required></textarea>
             </div> 
         </div>  
 

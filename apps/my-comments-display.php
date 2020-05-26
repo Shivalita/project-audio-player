@@ -29,27 +29,18 @@ if ($myCommentsCount === 0) {
         <div class="container mt-5">
             <div class="row justify-content-center text-center">
                 <div class="col-12 text-center">
-                    <h2><b class="text-white">Your comments</b></h2>
+                    <h3><b class="text-white">Your comments</b></h3>
                     <h5 class="mt-3">'.$myCommentsCount.' comments</h5>
                 </div>
             </div>
 
-            <div id="myComments" class="row justify-content-around">
+            <div id="myComments" class="row justify-content-around mt-4">
         ');
         foreach ($myComments as $myComment) {
-            /* Get commented songs titles */
-            $myCommentedSongQuery = $database->prepare('SELECT * from songs WHERE id = ?');
-            $myCommentedSongQuery->execute([$myComment['song_id']]);
-            $myCommentedSong = $myCommentedSongQuery->fetch(PDO::FETCH_ASSOC);
-
-            /* Get commented songs artists */
-            $myCommentedArtistQuery = $database->prepare('SELECT * from artists WHERE id = ?');
-            $myCommentedArtistQuery->execute([$myCommentedSong['artist_id']]);
-            $myCommentedArtist = $myCommentedArtistQuery->fetch(PDO::FETCH_ASSOC);
-
+            /* Display commented songs with their artists and titles */
             echo ('<div class="col-12 col-md-8 text-white displayList mb-4">');
                 echo ($myComment['created_at'].'</br>');
-                echo ('<b class="name">'.$myCommentedArtist['name'].' - '.$myCommentedSong['title'].'</b> : '.$myComment['comment'].'<br>');
+                echo ('<b class="name">'.$myComment['song_title'].' - '.$myComment['song_artist'].'</b> : '.$myComment['comment'].'<br>');
             echo ('</div>');
     }
     echo ('

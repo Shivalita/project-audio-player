@@ -30,13 +30,13 @@ include_once './partials/connection.php';
                 </aside>
 
                 <div class="col-12 col-md-10" id="main">
-                    <div id="tabs" class="d-flex">
-                        <a href="#" class="tab">Now playing</a>
-                        <a href="#" class="tab">Comments</a>
-                        <a href="#" class="tab">Popular playlists</a>
-                        <a href="#" class="tab">New releases</a>
+                    <div id="tabs" class="d-flex mt-3">
+                        <span class="tab roundBtn">Now playing</span>
+                        <span class="tab roundBtn">Comments</span>
+                        <span class="tab roundBtn">Popular playlists</span>
+                        <span class="tab roundBtn">New releases</span>
                     </div>
-                    <div id="content" class="d-flex" style="min-height: 100%;">
+                    <div id="content" class="d-flex justify-content-center align-items-center" style="min-height: 90%;">
                         <?php include_once './partials/default-text.php';?>
                     </div>
                 </div>

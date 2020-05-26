@@ -3,20 +3,21 @@
 include_once './partials/start-session.php';
 
 if (isset($_SESSION['nickname'])) {
-    return `
-    <div id="welcomeBack" class="text-center">
-        <h2 class="my-5 text-white"><b>Welcome back `.$_SESSION['nickname'].` !<b></h2>
-        <h4 class="mt-4 text-white">Have fun and good vibes !</h4>
-    </div>
-    `;
+    echo ('
+        <div id="welcomeBack" class="col-12 col-md-5 text-center cardText">
+            <h3 class="mt-3 mb-4"><b class="text-white">Welcome back '.$_SESSION['nickname'].'<b></h3>
+            <h5 class="my-3">Have fun and good vibes !</h5>
+        </div>
+    ');
 } else {
-    return `
-    <div id="signInvitation" class="text-center">
-        <h2 class="my-5 text-white"><b>Sign up to enjoy all features<b></h2>
-        <h4 class="mt-4 text-white">Create your own playlists and share them with the world</h4>
-        <h4 class="mt-3 text-white">Leave comments and post your thoughts about your favorite songs</h4>
-        <h4 class="mt-3 text-white">And more...</h4>
-    </div> 
-    `;
+    echo ('
+        <div id="signInvitation" class="col-12 col-md-5 text-center cardText">
+            <h3 class="mt-3 mb-4"><b class="text-white">Sign up to enjoy all features<b></h3>
+            <h5 class="mt-3">Create your own playlists and share them with the world</h5>
+            <h5 class="mt-3">Leave comments about your favorite songs</h5>
+            <h5 class="my-3">And more...</h5>
+        </div> 
+    ');
 }
 ?>
+

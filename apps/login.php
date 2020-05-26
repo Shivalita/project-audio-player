@@ -8,8 +8,6 @@ if (!empty($_POST['nickname']) && !empty($_POST['password'])) {
     $cleanNickname = cleanData($_POST['nickname']);
     $nickname = htmlspecialchars($cleanNickname);
     $password = cleanData($_POST['password']);
-} else {
-    header('location: ../index.php');
 }
 
 /* Remove data spaces and backslashs */
@@ -32,7 +30,7 @@ if (!$user) {
         $userId = $user['id'];
         $avatar = $user['avatar'];
         $avatar = substr($avatar, 1);
-    include_once '../apps/session.php';
+        include_once '../apps/session.php';
     header('location: ../index.php');
     } else {
         header('location: ../index.php?wrong_identifiers');

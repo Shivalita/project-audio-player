@@ -38,3 +38,4 @@ sideButtons.forEach(sideButton => {
         }
     })
 });
+
